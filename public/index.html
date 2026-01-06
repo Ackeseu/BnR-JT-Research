@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Research Institute</title>
+    <title>B&R JT Research Co. Limited</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Welcome to [Institute Name]</h1>
+        <h1>Welcome to B&R JT Research Co. Limited</h1>
         <nav>
             <a href="index.html">Home</a>
             <a href="research.html">Research Papers</a>
@@ -25,5 +25,15 @@
             <div id="news-feed"></div>
         </section>
     </main>
+    <script>
+        fetch('https://researchinstitutecms.blob.core.windows.net/news/news1.json')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('news-feed').innerHTML = `
+              <h3>${data.title}</h3>
+              <p>${data.date} - ${data.content}</p>
+            `;
+          });
+    </script>
 </body>
 </html>
