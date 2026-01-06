@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Institute - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 Research Institute</div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="research.html">Research Papers</a>
+                <a href="events.html">Events</a>
+                <a href="login.html" id="login-link">Member Login</a>
+                <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" style="display:none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Research Institute</h1>
+            <p class="subtitle">Advancing Knowledge Through Excellence in Research</p>
+        </section>
+
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p>The Research Institute is dedicated to conducting groundbreaking research in various fields, fostering innovation, and contributing to the advancement of human knowledge. We collaborate with leading institutions worldwide to address critical challenges facing our society.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🎯 Goal-Oriented</h3>
+                    <p>Our research is driven by clear objectives and measurable outcomes that impact society positively.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤝 Collaborative</h3>
+                    <p>We work with researchers and institutions globally to amplify our impact.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📚 Knowledge Sharing</h3>
+                    <p>We publish our findings openly to benefit the broader research community.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 Innovation</h3>
+                    <p>We embrace cutting-edge methodologies and emerging technologies in our research.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="news">
+            <h2>Latest News & Updates</h2>
+            <div id="news-feed" class="news-container"></div>
+        </section>
+
+        <section class="upcoming-events">
+            <h2>Upcoming Events</h2>
+            <div id="upcoming-events-preview" class="events-preview"></div>
+            <p><a href="events.html" class="btn-link">View All Events →</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Research Institute. All rights reserved.</p>
+        <p>Contact: info@researchinstitute.org | Phone: +1 (555) 123-4567</p>
+    </footer>
+
+    <script>
+        // Load news feed
+        function loadNews() {
+            fetch('./news1.json')
+                .then(response => response.json())
+                .then(data => {
+                    const newsFeed = document.getElementById('news-feed');
+                    const newsHTML = `
+                        <div class="news-item">
+                            <h3>${data.title}</h3>
+                            <p class="news-date">${new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                            <p>${data.content}</p>
+                        </div>
+                    `;
+                    newsFeed.innerHTML = newsHTML;
+                })
+                .catch(err => console.log('News feed loaded from cache'));
+        }
+
+        // Load upcoming events preview
+        function loadUpcomingEvents() {
+            fetch('./events.json')
+                .then(response => response.json())
+                .then(data => {
+                    const preview = document.getElementById('upcoming-events-preview');
+                    const upcoming = data.events.slice(0, 3).map(event => `
+                        <div class="event-preview">
+                            <h4>${event.title}</h4>
+                            <p class="event-date">📅 ${new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                            <p>${event.description.substring(0, 100)}...</p>
+                        </div>
+                    `).join('');
+                    preview.innerHTML = upcoming || '<p>No upcoming events scheduled.</p>';
+                })
+                .catch(err => {
+                    document.getElementById('upcoming-events-preview').innerHTML = '<p>Events loading...</p>';
+                });
+        }
+
+        // Check login status
+        function updateNav() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                cmsLink.style.display = 'inline-block';
+                logoutLink.style.display = 'inline-block';
+                logoutLink.onclick = (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    window.location.reload();
+                };
+            }
+        }
+
+        // Initialize
+        loadNews();
+        loadUpcomingEvents();
+        updateNav();
+    </script>
+</body>
+</html>

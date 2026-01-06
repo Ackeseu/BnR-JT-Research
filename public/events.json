@@ -1,0 +1,58 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Annual Research Conference 2026",
+      "date": "2026-03-15",
+      "time": "09:00 AM - 5:00 PM",
+      "location": "Conference Center, Grand Hall A",
+      "description": "Join leading researchers from around the world for our flagship annual conference. Topics include AI, quantum computing, climate science, and sustainable energy. Registration includes lunch and networking reception.",
+      "contact_email": "conference@researchinstitute.org"
+    },
+    {
+      "id": 2,
+      "title": "Machine Learning Masterclass Workshop",
+      "date": "2026-02-20",
+      "time": "10:00 AM - 4:00 PM",
+      "location": "Tech Innovation Lab, Room 201",
+      "description": "Hands-on workshop led by Dr. Sarah Chen covering advanced machine learning techniques. Participants will work with real datasets and state-of-the-art frameworks. Limited to 30 attendees.",
+      "contact_email": "workshops@researchinstitute.org"
+    },
+    {
+      "id": 3,
+      "title": "Climate Science Seminar Series - Session 1",
+      "date": "2026-02-05",
+      "time": "2:00 PM - 3:30 PM",
+      "location": "Main Building, Auditorium",
+      "description": "First in our seminar series on climate science. Prof. David Green will discuss latest findings on biodiversity conservation strategies.",
+      "contact_email": "seminars@researchinstitute.org"
+    },
+    {
+      "id": 4,
+      "title": "Quantum Computing and Drug Discovery Panel Discussion",
+      "date": "2026-03-01",
+      "time": "3:00 PM - 4:30 PM",
+      "location": "Virtual Event - Zoom Link Will Be Sent",
+      "description": "Expert panel discussing applications of quantum computing in pharmaceutical research. Features Dr. Robert Williams and industry experts from leading biotech companies.",
+      "contact_email": "events@researchinstitute.org"
+    },
+    {
+      "id": 5,
+      "title": "Member Exclusive: Advanced Research Methods Workshop",
+      "date": "2026-02-28",
+      "time": "1:00 PM - 5:00 PM",
+      "location": "Premium Lab Facilities, Building C",
+      "description": "Exclusive workshop for members only covering proprietary research methodologies and advanced analytical techniques.",
+      "contact_email": "members@researchinstitute.org"
+    },
+    {
+      "id": 6,
+      "title": "Sustainable Materials Forum",
+      "date": "2026-04-10",
+      "time": "10:00 AM - 12:00 PM",
+      "location": "Innovation Center, Conference Room 3",
+      "description": "Forum discussing latest developments in sustainable materials science. Network with material scientists, engineers, and industry partners.",
+      "contact_email": "forums@researchinstitute.org"
+    }
+  ]
+}

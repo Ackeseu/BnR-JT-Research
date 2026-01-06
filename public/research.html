@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Papers - Research Institute</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 Research Institute</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="research.html" class="active">Research Papers</a>
+                <a href="events.html">Events</a>
+                <a href="login.html" id="login-link">Member Login</a>
+                <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" style="display:none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Research Papers & Publications</h2>
+            <p>Browse our collection of peer-reviewed research papers and publications. Members can access exclusive research documents.</p>
+            
+            <div class="papers-grid" id="papers-container"></div>
+
+            <div id="member-only-section" style="display:none; margin-top: 2rem;">
+                <h3 style="color: var(--accent-color);">🔒 Member Exclusive Papers</h3>
+                <div class="papers-grid" id="member-papers-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Research Institute. All rights reserved.</p>
+        <p>Contact: info@researchinstitute.org | Phone: +1 (555) 123-4567</p>
+    </footer>
+
+    <script>
+        // Check login status
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            const logoutLink = document.getElementById('logout-link');
+            const memberSection = document.getElementById('member-only-section');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                cmsLink.style.display = 'inline-block';
+                logoutLink.style.display = 'inline-block';
+                memberSection.style.display = 'block';
+                logoutLink.onclick = (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    window.location.reload();
+                };
+                loadMemberPapers();
+            }
+        }
+
+        // Load public papers
+        function loadPapers() {
+            fetch('./papers.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('papers-container');
+                    const papersHTML = data.papers
+                        .filter(paper => !paper.member_only)
+                        .map(paper => `
+                            <div class="paper-card">
+                                <div class="paper-title">${paper.title}</div>
+                                <div class="paper-authors">By: ${paper.authors}</div>
+                                <div class="paper-year">Published: ${paper.year}</div>
+                                <div class="paper-abstract">${paper.abstract}</div>
+                                <div class="paper-actions">
+                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 Download PDF</a>
+                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">View on DOI</a>
+                                </div>
+                            </div>
+                        `).join('');
+                    container.innerHTML = papersHTML || '<p>No papers available at this time.</p>';
+                })
+                .catch(err => {
+                    document.getElementById('papers-container').innerHTML = '<p>Error loading papers. Please try again later.</p>';
+                });
+        }
+
+        // Load member-only papers
+        function loadMemberPapers() {
+            fetch('./papers.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('member-papers-container');
+                    const papersHTML = data.papers
+                        .filter(paper => paper.member_only)
+                        .map(paper => `
+                            <div class="paper-card" style="border-left: 4px solid var(--accent-color);">
+                                <div class="paper-title">${paper.title}</div>
+                                <div class="paper-authors">By: ${paper.authors}</div>
+                                <div class="paper-year">Published: ${paper.year}</div>
+                                <div class="paper-abstract">${paper.abstract}</div>
+                                <div class="paper-actions">
+                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 Download PDF</a>
+                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">View on DOI</a>
+                                </div>
+                            </div>
+                        `).join('');
+                    container.innerHTML = papersHTML || '<p>No exclusive papers at this time.</p>';
+                })
+                .catch(err => console.error('Error loading member papers'));
+        }
+
+        // Initialize
+        loadPapers();
+        checkAuth();
+    </script>
+</body>
+</html>

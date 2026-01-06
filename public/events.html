@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Research Institute</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔬 Research Institute</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research Papers</a>
+                <a href="events.html" class="active">Events</a>
+                <a href="login.html" id="login-link">Member Login</a>
+                <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" style="display:none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Upcoming Events</h2>
+            <p>Join us for our upcoming seminars, workshops, and conferences focused on advancing research and innovation.</p>
+            
+            <div class="events-grid" id="events-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Research Institute. All rights reserved.</p>
+        <p>Contact: info@researchinstitute.org | Phone: +1 (555) 123-4567</p>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                cmsLink.style.display = 'inline-block';
+                logoutLink.style.display = 'inline-block';
+                logoutLink.onclick = (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    window.location.reload();
+                };
+            }
+        }
+
+        function loadEvents() {
+            fetch('./events.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('events-container');
+                    const eventsHTML = data.events.map(event => `
+                        <div class="event-card">
+                            <div class="event-header">
+                                <h3>${event.title}</h3>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-time">📅 ${new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                                <div class="event-time">🕐 ${event.time}</div>
+                                <div class="event-location">📍 ${event.location}</div>
+                                <p>${event.description}</p>
+                                <div class="paper-actions">
+                                    <a href="mailto:${event.contact_email}" class="btn btn-small">Register Interest</a>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    container.innerHTML = eventsHTML || '<p>No events scheduled at this time.</p>';
+                })
+                .catch(err => {
+                    document.getElementById('events-container').innerHTML = '<p>Error loading events. Please try again later.</p>';
+                });
+        }
+
+        loadEvents();
+        checkAuth();
+    </script>
+</body>
+</html>

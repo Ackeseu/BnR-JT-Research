@@ -1,0 +1,49 @@
+{
+  "papers": [
+    {
+      "title": "Deep Learning Applications in Medical Imaging",
+      "authors": "Dr. Sarah Chen, Dr. James Mitchell, Prof. Emma Johnson",
+      "year": 2025,
+      "abstract": "This paper explores the cutting-edge applications of deep learning algorithms in medical image analysis, including tumor detection, segmentation, and classification. Our novel architecture achieves 98.5% accuracy on benchmark datasets.",
+      "pdf_url": "/papers/medical-imaging-dl.pdf",
+      "doi_url": "https://doi.org/10.1234/example.2025.001",
+      "member_only": false
+    },
+    {
+      "title": "Quantum Computing in Drug Discovery",
+      "authors": "Dr. Robert Williams, Dr. Liu Zhang",
+      "year": 2025,
+      "abstract": "This groundbreaking study demonstrates how quantum computing can accelerate drug discovery processes. We reduced simulation time by 1000x compared to classical methods.",
+      "pdf_url": "/papers/quantum-drug-discovery.pdf",
+      "doi_url": "https://doi.org/10.1234/example.2025.002",
+      "member_only": false
+    },
+    {
+      "title": "Climate Change Impact on Biodiversity",
+      "authors": "Dr. Monica Patel, Prof. David Green, Dr. Lisa Brown",
+      "year": 2025,
+      "abstract": "A comprehensive analysis of how climate change affects species distribution and biodiversity in tropical ecosystems. This study covers 50 years of ecological data.",
+      "pdf_url": "/papers/climate-biodiversity.pdf",
+      "doi_url": "https://doi.org/10.1234/example.2025.003",
+      "member_only": false
+    },
+    {
+      "title": "Advanced Materials for Sustainable Energy Storage",
+      "authors": "Prof. Alexander Kumar, Dr. Anna Schmidt, Dr. Tom Davis",
+      "year": 2024,
+      "abstract": "This research presents novel composite materials with superior energy density and thermal stability for next-generation batteries. Member exclusive research on proprietary formulations.",
+      "pdf_url": "/papers/advanced-materials-energy.pdf",
+      "doi_url": "https://doi.org/10.1234/example.2024.004",
+      "member_only": true
+    },
+    {
+      "title": "AI Ethics in Autonomous Systems",
+      "authors": "Dr. Patricia Martinez, Prof. Steven Lee",
+      "year": 2024,
+      "abstract": "A critical examination of ethical frameworks for autonomous systems. This member-exclusive paper contains detailed case studies and proprietary methodologies.",
+      "pdf_url": "/papers/ai-ethics-autonomous.pdf",
+      "doi_url": "https://doi.org/10.1234/example.2024.005",
+      "member_only": true
+    }
+  ]
+}
