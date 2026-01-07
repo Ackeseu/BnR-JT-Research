@@ -5,6 +5,32 @@ const path = require('path');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
+// Global logging helpers for Azure App Service diagnostics
+const AZURE_LOG_PATH = '/home/LogFiles/app-error.log';
+function appendAzureLog(message) {
+    try {
+        fs.appendFileSync(AZURE_LOG_PATH, message + '\n');
+    } catch (e) {
+        // best-effort only
+        console.error('Failed to write Azure log:', e && e.message);
+    }
+}
+
+process.on('uncaughtException', (err) => {
+    const msg = `[uncaughtException] ${new Date().toISOString()} ${err && err.stack ? err.stack : String(err)}`;
+    console.error(msg);
+    appendAzureLog(msg);
+    // allow a short time for logs to flush
+    setTimeout(() => process.exit(1), 200);
+});
+
+process.on('unhandledRejection', (reason) => {
+    const msg = `[unhandledRejection] ${new Date().toISOString()} ${reason && reason.stack ? reason.stack : String(reason)}`;
+    console.error(msg);
+    appendAzureLog(msg);
+    setTimeout(() => process.exit(1), 200);
+});
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
@@ -219,6 +245,8 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Research Institute API running on port ${PORT}`);
+    const startMsg = `Research Institute API running on port ${PORT}`;
+    console.log(startMsg);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    appendAzureLog(`[startup] ${new Date().toISOString()} ${startMsg} env=${process.env.NODE_ENV || 'development'}`);
 });
