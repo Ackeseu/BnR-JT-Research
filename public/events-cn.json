@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "title": "建筑合约管理国际研讨会",
+        "date": "2026-02-15",
+        "time": "09:00 - 17:00",
+        "location": "香港会议展览中心",
+        "description": "加入来自世界各地的行业领袖，讨论建筑合约管理的最新趋势和最佳实践。",
+        "contact_email": "symposium@brjtresearch.org"
+    },
+    {
+        "id": 2,
+        "title": "区块链在建筑合约中的应用工作坊",
+        "date": "2026-03-10",
+        "time": "14:00 - 16:30",
+        "location": "一带一路建投研究院会议室A",
+        "description": "实践工作坊，探索区块链技术如何革新建筑合约的执行和管理。",
+        "contact_email": "workshops@brjtresearch.org"
+    },
+    {
+        "id": 3,
+        "title": "年度研究成果展示",
+        "date": "2026-04-20",
+        "time": "10:00 - 15:00",
+        "location": "研究所大礼堂",
+        "description": "我们的研究团队将展示过去一年在建筑合约法律和管理方面的突破性发现。",
+        "contact_email": "events@brjtresearch.org"
+    },
+    {
+        "id": 4,
+        "title": "合约纠纷解决论坛",
+        "date": "2026-05-08",
+        "time": "13:00 - 17:00",
+        "location": "线上活动（Zoom）",
+        "description": "与法律专家和调解员讨论建筑项目中有效的合约纠纷解决策略。",
+        "contact_email": "forum@brjtresearch.org"
+    },
+    {
+        "id": 5,
+        "title": "研究生研究海报展",
+        "date": "2026-06-12",
+        "time": "11:00 - 14:00",
+        "location": "研究所展览大厅",
+        "description": "研究生将展示他们关于建筑合约创新方面的研究项目。",
+        "contact_email": "graduates@brjtresearch.org"
+    },
+    {
+        "id": 6,
+        "title": "行业网络晚宴",
+        "date": "2026-07-18",
+        "time": "18:30 - 21:00",
+        "location": "香港四季酒店",
+        "description": "与建筑行业专业人士、研究人员和政策制定者的独家社交活动。",
+        "contact_email": "networking@brjtresearch.org"
+    }
+]

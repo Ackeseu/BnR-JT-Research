@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員登入 - 一帶一路建投研究院</title>
+    <title>会员登录 - 一带一路建投研究院</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="navbar-content">
-                <div class="logo">🔬 一帶一路建投研究院</div>
+                <div class="logo">🔬 一带一路建投研究院</div>
                 <div class="nav-links">
-                    <a href="index-zh.html">首頁</a>
-                    <a href="research-zh.html">研究論文</a>
-                    <a href="resources-zh.html">資源中心</a>
-                    <a href="events-zh.html">活動</a>
-                    <a href="login-zh.html" class="active">會員登入</a>
-                    <a href="cms-zh.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="index-cn.html">首页</a>
+                    <a href="research-cn.html">研究论文</a>
+                    <a href="resources-cn.html">资源中心</a>
+                    <a href="events-cn.html">活动</a>
+                    <a href="login-cn.html" class="active">会员登录</a>
+                    <a href="cms-cn.html" id="cms-link" style="display:none;">管理平台</a>
                     <a href="login.html" class="lang-switch">🌐 English</a>
-                    <a href="login-cn.html" class="lang-switch">🌐 简体</a>
+                    <a href="login-zh.html" class="lang-switch">🌐 繁體</a>
                 </div>
             </div>
         </nav>
         <div class="banner">
-            <img src="images/banner.jpg" alt="一帶一路建投研究院—實驗室及團隊橫幅" loading="eager">
+            <img src="images/banner.jpg" alt="一带一路建投研究院—实验室及团队横幅" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-text">
-                    <p class="eyebrow">研究。創新。影響。</p>
-                    <h1>推動塑造未來的發現。</h1>
-                    <p class="subtitle">從實驗室到發表，我們的團隊突破科學與技術的界限。</p>
+                    <p class="eyebrow">研究。创新。影响。</p>
+                    <h1>推动塑造未来的发现。</h1>
+                    <p class="subtitle">从实验室到发表，我们的团队突破科学与技术的界限。</p>
                     <div class="banner-actions">
-                        <a class="btn" href="research-zh.html">探索研究</a>
-                        <a class="btn btn-link" href="events-zh.html">查看活動</a>
+                        <a class="btn" href="research-cn.html">探索研究</a>
+                        <a class="btn btn-link" href="events-cn.html">查看活动</a>
                     </div>
                 </div>
             </div>
@@ -41,22 +41,22 @@
 
     <main>
         <section class="login-container">
-            <h2>會員登入</h2>
-            <p>使用您的會員憑證登入以訪問獨家研究論文和內容。</p>
+            <h2>会员登录</h2>
+            <p>使用您的会员凭证登录以访问独家研究论文和内容。</p>
             
             <div id="login-form">
                 <form onsubmit="handleLogin(event)">
                     <div class="form-group">
-                        <label for="email">電子郵件地址</label>
+                        <label for="email">电子邮箱地址</label>
                         <input type="email" id="email" name="email" required placeholder="your@example.com">
                     </div>
                     <div class="form-group">
-                        <label for="password">密碼</label>
+                        <label for="password">密码</label>
                         <input type="password" id="password" name="password" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn" style="width: 100%;">登入</button>
+                    <button type="submit" class="btn" style="width: 100%;">登录</button>
                 </form>
-                <p style="text-align: center; margin-top: 1rem;">沒有帳戶？<a href="#" onclick="showInfo()">聯絡管理員</a></p>
+                <p style="text-align: center; margin-top: 1rem;">没有账户？<a href="#" onclick="showInfo()">联系管理员</a></p>
             </div>
 
             <div id="error-message" style="color: var(--accent-color); margin-top: 1rem; display:none;"></div>
@@ -65,13 +65,13 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
-        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
     </footer>
 
     <script>
         if (localStorage.getItem('authToken')) {
-            window.location.href = 'index-zh.html';
+            window.location.href = 'index-cn.html';
         }
 
         function handleLogin(event) {
@@ -88,19 +88,19 @@
                 localStorage.setItem('userEmail', email);
                 
                 successDiv.style.display = 'block';
-                successDiv.textContent = '✓ 登入成功！正在重定向...';
+                successDiv.textContent = '✓ 登录成功！正在重定向...';
                 
                 setTimeout(() => {
-                    window.location.href = 'research-zh.html';
+                    window.location.href = 'research-cn.html';
                 }, 1500);
             } else {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = '✗ 無效的電子郵件或密碼（至少6個字符）';
+                errorDiv.textContent = '✗ 无效的电子邮箱或密码（至少6个字符）';
             }
         }
 
         function showInfo() {
-            alert('請聯絡管理員 admin@researchinstitute.org 申請會員帳戶。');
+            alert('请联系管理员 admin@researchinstitute.org 申请会员账户。');
         }
     </script>
 </body>

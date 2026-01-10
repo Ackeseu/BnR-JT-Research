@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源中心 - 一带一路建投研究院</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 一带一路建投研究院</div>
+                <div class="nav-links">
+                    <a href="index-cn.html">首页</a>
+                    <a href="research-cn.html">研究论文</a>
+                    <a href="resources-cn.html" class="active">资源中心</a>
+                    <a href="events-cn.html">活动</a>
+                    <a href="login-cn.html" id="login-link">会员登录</a>
+                    <a href="cms-cn.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="resources.html" class="lang-switch">🌐 English</a>
+                    <a href="resources-zh.html" class="lang-switch">🌐 繁體</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="一带一路建投研究院" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">研究。创新。影响。</p>
+                    <h1>推动塑造未来的发现。</h1>
+                    <p class="subtitle">从实验室到发表，我们的团队突破科学与技术的界限。</p>
+                    <div class="banner-actions">
+                        <a class="btn" href="research-cn.html">探索研究</a>
+                        <a class="btn btn-link" href="events-cn.html">查看活动</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>资源中心</h2>
+            <p>访问我们精选的模板、指南和工具，助力建筑合约研究。</p>
+            
+            <div class="resources-filter">
+                <label for="category-filter">按类别筛选：</label>
+                <select id="category-filter" onchange="filterResources()">
+                    <option value="all">所有类别</option>
+                    <option value="模板">模板</option>
+                    <option value="指南">指南</option>
+                    <option value="工具">工具</option>
+                    <option value="参考">参考</option>
+                    <option value="研究">研究</option>
+                </select>
+            </div>
+
+            <div id="resources-container" class="resources-grid">
+                <p>正在加载资源...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    </footer>
+
+    <script>
+        let allResources = [];
+
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            
+            if (token) {
+                loginLink.textContent = '登出';
+                loginLink.href = '#';
+                loginLink.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = 'index-cn.html';
+                };
+                cmsLink.style.display = 'inline';
+            }
+        }
+
+        async function loadAllResources() {
+            try {
+                const response = await fetch('resources-cn.json');
+                allResources = await response.json();
+                renderResources(allResources);
+            } catch (error) {
+                document.getElementById('resources-container').innerHTML = '<p>无法加载资源。</p>';
+            }
+        }
+
+        function renderResources(resources) {
+            const container = document.getElementById('resources-container');
+            
+            if (resources.length === 0) {
+                container.innerHTML = '<p>未找到匹配的资源。</p>';
+                return;
+            }
+
+            container.innerHTML = resources.map(resource => `
+                <div class="resource-card">
+                    <div class="resource-icon">${resource.icon}</div>
+                    <h3>${resource.title}</h3>
+                    <span class="resource-category">${resource.category}</span>
+                    <p>${resource.shortDescription}</p>
+                    <details>
+                        <summary>了解更多</summary>
+                        <p>${resource.fullDescription}</p>
+                        ${resource.downloadUrl ? `
+                            <div class="resource-meta">
+                                <span>格式：${resource.format}</span>
+                                <span>大小：${resource.fileSize}</span>
+                            </div>
+                        ` : ''}
+                    </details>
+                    ${resource.downloadUrl ? `
+                        <a href="${resource.downloadUrl}" class="btn" download>下载</a>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function filterResources() {
+            const category = document.getElementById('category-filter').value;
+            
+            if (category === 'all') {
+                renderResources(allResources);
+            } else {
+                const filtered = allResources.filter(r => r.category === category);
+                renderResources(filtered);
+            }
+        }
+
+        checkAuth();
+        loadAllResources();
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究论文 - 一带一路建投研究院</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 一带一路建投研究院</div>
+                <div class="nav-links">
+                    <a href="index-cn.html">首页</a>
+                    <a href="research-cn.html" class="active">研究论文</a>
+                    <a href="resources-cn.html">资源中心</a>
+                    <a href="events-cn.html">活动</a>
+                    <a href="login-cn.html" id="login-link">会员登录</a>
+                    <a href="cms-cn.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="research.html" class="lang-switch">🌐 English</a>
+                    <a href="research-zh.html" class="lang-switch">🌐 繁體</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="一带一路建投研究院" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">研究。创新。影响。</p>
+                    <h1>推动塑造未来的发现。</h1>
+                    <p class="subtitle">从实验室到发表，我们的团队突破科学与技术的界限。</p>
+                    <div class="banner-actions">
+                        <a class="btn" href="research-cn.html">探索研究</a>
+                        <a class="btn btn-link" href="events-cn.html">查看活动</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>研究论文</h2>
+            <p>探索我们团队在各个领域的最新研究成果。</p>
+            
+            <h3>公开发表</h3>
+            <div id="public-papers" class="papers-grid">
+                <p>正在加载论文...</p>
+            </div>
+
+            <div id="members-section" style="display:none;">
+                <h3>会员专享论文</h3>
+                <p>以下论文仅供注册会员访问。</p>
+                <div id="member-papers" class="papers-grid"></div>
+            </div>
+
+            <div id="login-prompt" style="display:none; padding: 2rem; background: #f5f5f5; border-radius: 8px; text-align: center;">
+                <p>想要访问会员专享论文？<a href="login-cn.html" style="color: var(--primary-color); font-weight: 600;">请登录</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            
+            if (token) {
+                loginLink.textContent = '登出';
+                loginLink.href = '#';
+                loginLink.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = 'index-cn.html';
+                };
+                cmsLink.style.display = 'inline';
+                document.getElementById('members-section').style.display = 'block';
+            } else {
+                document.getElementById('login-prompt').style.display = 'block';
+            }
+        }
+
+        async function loadPapers() {
+            try {
+                const response = await fetch('papers.json');
+                const data = await response.json();
+                
+                const publicContainer = document.getElementById('public-papers');
+                publicContainer.innerHTML = data.public.map(paper => `
+                    <div class="paper-card">
+                        <h3>${paper.title}</h3>
+                        <p class="authors">作者：${paper.authors}</p>
+                        <p class="publication">发表于 ${paper.journal} (${paper.year})</p>
+                        <div class="paper-actions">
+                            ${paper.pdf ? `<a href="${paper.pdf}" class="btn" target="_blank">下载PDF</a>` : ''}
+                            <a href="https://doi.org/${paper.doi}" class="btn btn-link" target="_blank">在DOI上查看</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                if (localStorage.getItem('authToken')) {
+                    loadMemberPapers(data.members);
+                }
+            } catch (error) {
+                document.getElementById('public-papers').innerHTML = '<p>无法加载论文。</p>';
+            }
+        }
+
+        function loadMemberPapers(papers) {
+            const memberContainer = document.getElementById('member-papers');
+            memberContainer.innerHTML = papers.map(paper => `
+                <div class="paper-card">
+                    <h3>${paper.title}</h3>
+                    <p class="authors">作者：${paper.authors}</p>
+                    <p class="publication">发表于 ${paper.journal} (${paper.year})</p>
+                    <div class="paper-actions">
+                        ${paper.pdf ? `<a href="${paper.pdf}" class="btn" target="_blank">下载PDF</a>` : ''}
+                        <a href="https://doi.org/${paper.doi}" class="btn btn-link" target="_blank">在DOI上查看</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        checkAuth();
+        loadPapers();
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一带一路建投研究院</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 一带一路建投研究院</div>
+                <div class="nav-links" id="nav-links">
+                    <a href="index-cn.html" class="active">首页</a>
+                    <a href="research-cn.html">研究论文</a>
+                    <a href="resources-cn.html">资源中心</a>
+                    <a href="events-cn.html">活动</a>
+                    <a href="login-cn.html" id="login-link">会员登录</a>
+                    <a href="cms-cn.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="index.html" class="lang-switch">🌐 English</a>
+                    <a href="index-zh.html" class="lang-switch">🌐 繁體</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="一带一路建投研究院——实验室及团队横幅" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">研究。创新。影响。</p>
+                    <h1>推动塑造未来的发现。</h1>
+                    <p class="subtitle">从实验室到发表，我们的团队突破科学与技术的界限。</p>
+                    <div class="banner-actions">
+                        <a class="btn" href="research-cn.html">探索研究</a>
+                        <a class="btn btn-link" href="events-cn.html">查看活动</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>欢迎访问一带一路建投研究院</h2>
+            <p>在建筑合约领域开展前沿研究</p>
+        </section>
+
+        <section class="mission">
+            <h2>我们的使命</h2>
+            <p>一带一路建投研究院致力于在建筑合约领域开展开创性研究，促进创新，并为国际建筑项目的知识进步作出贡献。</p>
+        </section>
+
+        <section class="news">
+            <h2>最新新闻</h2>
+            <div id="news-container" class="news-grid">
+                <p>正在加载新闻...</p>
+            </div>
+        </section>
+
+        <section class="upcoming-events">
+            <h2>即将举行的活动</h2>
+            <div id="events-preview-container" class="events-preview">
+                <p>正在加载活动...</p>
+            </div>
+            <p><a href="events-cn.html" class="btn-link">查看所有活动 →</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            
+            if (token) {
+                loginLink.textContent = '登出';
+                loginLink.href = '#';
+                loginLink.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    window.location.reload();
+                };
+                cmsLink.style.display = 'inline';
+            }
+        }
+
+        async function loadNews() {
+            try {
+                const response = await fetch('news1-cn.json');
+                const news = await response.json();
+                const container = document.getElementById('news-container');
+                
+                container.innerHTML = news.slice(0, 3).map(item => `
+                    <article class="news-card">
+                        <h3>${item.title}</h3>
+                        <p class="date">${item.date}</p>
+                        <p>${item.excerpt}</p>
+                    </article>
+                `).join('');
+            } catch (error) {
+                document.getElementById('news-container').innerHTML = '<p>无法加载新闻。</p>';
+            }
+        }
+
+        async function loadUpcomingEvents() {
+            try {
+                const response = await fetch('events-cn.json');
+                const events = await response.json();
+                const container = document.getElementById('events-preview-container');
+                
+                const now = new Date();
+                const upcomingEvents = events
+                    .filter(event => new Date(event.date) >= now)
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+                
+                if (upcomingEvents.length > 0) {
+                    container.innerHTML = upcomingEvents.map(event => `
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span class="month">${new Date(event.date).toLocaleDateString('zh-CN', { month: 'short' })}</span>
+                                <span class="day">${new Date(event.date).getDate()}</span>
+                            </div>
+                            <div class="event-details">
+                                <h3>${event.title}</h3>
+                                <p class="event-time">⏰ ${event.time}</p>
+                                <p class="event-location">📍 ${event.location}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p>目前没有即将举行的活动。</p>';
+                }
+            } catch (error) {
+                document.getElementById('events-preview-container').innerHTML = '<p>无法加载活动。</p>';
+            }
+        }
+
+        checkAuth();
+        loadNews();
+        loadUpcomingEvents();
+    </script>
+</body>
+</html>

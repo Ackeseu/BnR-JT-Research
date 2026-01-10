@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>內容管理系統 - 一帶一路建投研究院</title>
+    <title>内容管理系统 - 一带一路建投研究院</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .cms-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
@@ -31,26 +31,26 @@
     <header>
         <nav class="navbar">
             <div class="navbar-content">
-                <div class="logo">🔬 一帶一路建投研究院</div>
+                <div class="logo">🔬 一带一路建投研究院</div>
                 <div class="nav-links">
-                    <a href="index-zh.html">首頁</a>
-                    <a href="research-zh.html">研究論文</a>
-                    <a href="resources-zh.html">資源中心</a>
-                    <a href="events-zh.html">活動</a>
-                    <a href="login-zh.html" id="login-link">會員登入</a>
-                    <a href="cms-zh.html" class="active" id="cms-link">管理平台</a>
+                    <a href="index-cn.html">首页</a>
+                    <a href="research-cn.html">研究论文</a>
+                    <a href="resources-cn.html">资源中心</a>
+                    <a href="events-cn.html">活动</a>
+                    <a href="login-cn.html" id="login-link">会员登录</a>
+                    <a href="cms-cn.html" class="active" id="cms-link">管理平台</a>
                     <a href="cms.html" class="lang-switch">🌐 English</a>
-                    <a href="cms-cn.html" class="lang-switch">🌐 简体</a>
+                    <a href="cms-zh.html" class="lang-switch">🌐 繁體</a>
                 </div>
             </div>
         </nav>
         <div class="banner">
-            <img src="images/banner.jpg" alt="一帶一路建投研究院" loading="eager">
+            <img src="images/banner.jpg" alt="一带一路建投研究院" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-text">
-                    <p class="eyebrow">內容管理</p>
-                    <h1>管理您的研究內容</h1>
-                    <p class="subtitle">添加、編輯和管理新聞、活動、論文和用戶。</p>
+                    <p class="eyebrow">内容管理</p>
+                    <h1>管理您的研究内容</h1>
+                    <p class="subtitle">添加、编辑和管理新闻、活动、论文和用户。</p>
                 </div>
             </div>
         </div>
@@ -61,18 +61,18 @@
             <div id="message-container"></div>
 
             <div class="cms-nav">
-                <button class="active" onclick="showTab('news')">新聞</button>
-                <button onclick="showTab('events')">活動</button>
-                <button onclick="showTab('papers')">論文</button>
-                <button onclick="showTab('users')">用戶</button>
+                <button class="active" onclick="showTab('news')">新闻</button>
+                <button onclick="showTab('events')">活动</button>
+                <button onclick="showTab('papers')">论文</button>
+                <button onclick="showTab('users')">用户</button>
             </div>
 
             <!-- News Tab -->
             <div id="news-tab" class="tab-content active">
-                <h2>管理新聞</h2>
+                <h2>管理新闻</h2>
                 <form onsubmit="addNews(event)">
                     <div class="form-group">
-                        <label for="news-title">標題</label>
+                        <label for="news-title">标题</label>
                         <input type="text" id="news-title" required>
                     </div>
                     <div class="form-group">
@@ -83,17 +83,17 @@
                         <label for="news-excerpt">摘要</label>
                         <textarea id="news-excerpt" required></textarea>
                     </div>
-                    <button type="submit" class="btn">添加新聞</button>
+                    <button type="submit" class="btn">添加新闻</button>
                 </form>
                 <div id="news-list" class="items-list"></div>
             </div>
 
             <!-- Events Tab -->
             <div id="events-tab" class="tab-content">
-                <h2>管理活動</h2>
+                <h2>管理活动</h2>
                 <form onsubmit="addEvent(event)">
                     <div class="form-group">
-                        <label for="event-title">活動標題</label>
+                        <label for="event-title">活动标题</label>
                         <input type="text" id="event-title" required>
                     </div>
                     <div class="form-group">
@@ -101,11 +101,11 @@
                         <input type="date" id="event-date" required>
                     </div>
                     <div class="form-group">
-                        <label for="event-time">時間</label>
+                        <label for="event-time">时间</label>
                         <input type="time" id="event-time" required>
                     </div>
                     <div class="form-group">
-                        <label for="event-location">地點</label>
+                        <label for="event-location">地点</label>
                         <input type="text" id="event-location" required>
                     </div>
                     <div class="form-group">
@@ -113,20 +113,20 @@
                         <textarea id="event-description" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="event-email">聯絡電子郵件</label>
+                        <label for="event-email">联系电子邮箱</label>
                         <input type="email" id="event-email" required>
                     </div>
-                    <button type="submit" class="btn">添加活動</button>
+                    <button type="submit" class="btn">添加活动</button>
                 </form>
                 <div id="events-list" class="items-list"></div>
             </div>
 
             <!-- Papers Tab -->
             <div id="papers-tab" class="tab-content">
-                <h2>管理研究論文</h2>
+                <h2>管理研究论文</h2>
                 <form onsubmit="addPaper(event)">
                     <div class="form-group">
-                        <label for="paper-title">論文標題</label>
+                        <label for="paper-title">论文标题</label>
                         <input type="text" id="paper-title" required>
                     </div>
                     <div class="form-group">
@@ -150,23 +150,23 @@
                         <input type="url" id="paper-pdf">
                     </div>
                     <div class="form-group">
-                        <label for="paper-member-only">僅限會員</label>
+                        <label for="paper-member-only">仅限会员</label>
                         <select id="paper-member-only">
                             <option value="false">否</option>
                             <option value="true">是</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn">添加論文</button>
+                    <button type="submit" class="btn">添加论文</button>
                 </form>
                 <div id="papers-list" class="items-list"></div>
             </div>
 
             <!-- Users Tab -->
             <div id="users-tab" class="tab-content">
-                <h2>管理用戶</h2>
+                <h2>管理用户</h2>
                 <form onsubmit="addUser(event)">
                     <div class="form-group">
-                        <label for="user-email">電子郵件</label>
+                        <label for="user-email">电子邮箱</label>
                         <input type="email" id="user-email" required>
                     </div>
                     <div class="form-group">
@@ -176,11 +176,11 @@
                     <div class="form-group">
                         <label for="user-role">角色</label>
                         <select id="user-role">
-                            <option value="member">會員</option>
-                            <option value="admin">管理員</option>
+                            <option value="member">会员</option>
+                            <option value="admin">管理员</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn">添加用戶</button>
+                    <button type="submit" class="btn">添加用户</button>
                 </form>
                 <div id="users-list" class="items-list"></div>
             </div>
@@ -188,15 +188,15 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
-        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
     </footer>
 
     <script>
         function checkAuth() {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                window.location.href = 'login-zh.html';
+                window.location.href = 'login-cn.html';
                 return false;
             }
             return true;
@@ -220,59 +220,38 @@
 
         function addNews(event) {
             event.preventDefault();
-            const title = document.getElementById('news-title').value;
-            const date = document.getElementById('news-date').value;
-            const excerpt = document.getElementById('news-excerpt').value;
-            
-            showMessage('新聞已成功添加！');
+            showMessage('新闻已成功添加！');
             event.target.reset();
             loadNews();
         }
 
         function addEvent(event) {
             event.preventDefault();
-            const title = document.getElementById('event-title').value;
-            const date = document.getElementById('event-date').value;
-            const time = document.getElementById('event-time').value;
-            const location = document.getElementById('event-location').value;
-            const description = document.getElementById('event-description').value;
-            const email = document.getElementById('event-email').value;
-            
-            showMessage('活動已成功添加！');
+            showMessage('活动已成功添加！');
             event.target.reset();
             loadEvents();
         }
 
         function addPaper(event) {
             event.preventDefault();
-            const title = document.getElementById('paper-title').value;
-            const authors = document.getElementById('paper-authors').value;
-            const journal = document.getElementById('paper-journal').value;
-            const year = document.getElementById('paper-year').value;
-            const doi = document.getElementById('paper-doi').value;
-            
-            showMessage('論文已成功添加！');
+            showMessage('论文已成功添加！');
             event.target.reset();
             loadPapers();
         }
 
         function addUser(event) {
             event.preventDefault();
-            const email = document.getElementById('user-email').value;
-            const name = document.getElementById('user-name').value;
-            const role = document.getElementById('user-role').value;
-            
-            showMessage('用戶已成功添加！');
+            showMessage('用户已成功添加！');
             event.target.reset();
             loadUsers();
         }
 
         function loadNews() {
-            fetch('news1-zh.json')
+            fetch('news1-cn.json')
                 .then(response => response.json())
                 .then(data => {
                     const list = document.getElementById('news-list');
-                    list.innerHTML = '<h3>現有新聞</h3>';
+                    list.innerHTML = '<h3>现有新闻</h3>';
                     data.forEach(item => {
                         list.innerHTML += `
                             <div class="item-card">
@@ -280,8 +259,8 @@
                                 <p><strong>日期：</strong> ${item.date}</p>
                                 <p>${item.excerpt}</p>
                                 <div class="item-actions">
-                                    <button class="btn-edit">編輯</button>
-                                    <button class="btn-delete">刪除</button>
+                                    <button class="btn-edit">编辑</button>
+                                    <button class="btn-delete">删除</button>
                                 </div>
                             </div>
                         `;
@@ -290,21 +269,21 @@
         }
 
         function loadEvents() {
-            fetch('events-zh.json')
+            fetch('events-cn.json')
                 .then(response => response.json())
                 .then(data => {
                     const list = document.getElementById('events-list');
-                    list.innerHTML = '<h3>現有活動</h3>';
+                    list.innerHTML = '<h3>现有活动</h3>';
                     data.forEach(item => {
                         list.innerHTML += `
                             <div class="item-card">
                                 <h4>${item.title}</h4>
                                 <p><strong>日期：</strong> ${item.date} ${item.time}</p>
-                                <p><strong>地點：</strong> ${item.location}</p>
+                                <p><strong>地点：</strong> ${item.location}</p>
                                 <p>${item.description}</p>
                                 <div class="item-actions">
-                                    <button class="btn-edit">編輯</button>
-                                    <button class="btn-delete">刪除</button>
+                                    <button class="btn-edit">编辑</button>
+                                    <button class="btn-delete">删除</button>
                                 </div>
                             </div>
                         `;
@@ -317,7 +296,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const list = document.getElementById('papers-list');
-                    list.innerHTML = '<h3>現有論文</h3>';
+                    list.innerHTML = '<h3>现有论文</h3>';
                     data.public.concat(data.members).forEach(item => {
                         list.innerHTML += `
                             <div class="item-card">
@@ -325,8 +304,8 @@
                                 <p><strong>作者：</strong> ${item.authors}</p>
                                 <p><strong>期刊：</strong> ${item.journal} (${item.year})</p>
                                 <div class="item-actions">
-                                    <button class="btn-edit">編輯</button>
-                                    <button class="btn-delete">刪除</button>
+                                    <button class="btn-edit">编辑</button>
+                                    <button class="btn-delete">删除</button>
                                 </div>
                             </div>
                         `;
@@ -336,7 +315,7 @@
 
         function loadUsers() {
             const list = document.getElementById('users-list');
-            list.innerHTML = '<h3>現有用戶</h3><p>用戶管理功能將在完整後端實施時可用。</p>';
+            list.innerHTML = '<h3>现有用户</h3><p>用户管理功能将在完整后端实施时可用。</p>';
         }
 
         loadNews();

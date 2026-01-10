@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动 - 一带一路建投研究院</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 一带一路建投研究院</div>
+                <div class="nav-links">
+                    <a href="index-cn.html">首页</a>
+                    <a href="research-cn.html">研究论文</a>
+                    <a href="resources-cn.html">资源中心</a>
+                    <a href="events-cn.html" class="active">活动</a>
+                    <a href="login-cn.html" id="login-link">会员登录</a>
+                    <a href="cms-cn.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="events.html" class="lang-switch">🌐 English</a>
+                    <a href="events-zh.html" class="lang-switch">🌐 繁體</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="一带一路建投研究院" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">研究。创新。影响。</p>
+                    <h1>推动塑造未来的发现。</h1>
+                    <p class="subtitle">从实验室到发表，我们的团队突破科学与技术的界限。</p>
+                    <div class="banner-actions">
+                        <a class="btn" href="research-cn.html">探索研究</a>
+                        <a class="btn btn-link" href="events-cn.html">查看活动</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>活动与会议</h2>
+            <p>加入我们参加即将举行的研讨会、研究展示会和网络活动。</p>
+            
+            <div id="events-container" class="events-grid">
+                <p>正在加载活动...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
+        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            
+            if (token) {
+                loginLink.textContent = '登出';
+                loginLink.href = '#';
+                loginLink.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    window.location.href = 'index-cn.html';
+                };
+                cmsLink.style.display = 'inline';
+            }
+        }
+
+        async function loadEvents() {
+            try {
+                const response = await fetch('events-cn.json');
+                const events = await response.json();
+                const container = document.getElementById('events-container');
+                
+                container.innerHTML = events.map(event => `
+                    <div class="event-card">
+                        <h3>${event.title}</h3>
+                        <p class="date">${new Date(event.date).toLocaleDateString('zh-CN', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}</p>
+                        <p class="time">⏰ ${event.time}</p>
+                        <p class="location">📍 ${event.location}</p>
+                        <p>${event.description}</p>
+                        <p><strong>联系：</strong> <a href="mailto:${event.contact_email}">${event.contact_email}</a></p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('events-container').innerHTML = '<p>无法加载活动。</p>';
+            }
+        }
+
+        checkAuth();
+        loadEvents();
+    </script>
+</body>
+</html>

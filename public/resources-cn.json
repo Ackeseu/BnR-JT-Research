@@ -1,0 +1,68 @@
+[
+    {
+        "id": 1,
+        "title": "标准建筑合约模板",
+        "icon": "📄",
+        "category": "模板",
+        "shortDescription": "国际建筑项目的综合合约模板。",
+        "fullDescription": "这套专业模板基于国际最佳实践和法律标准。包括适用于各种建筑项目类型的主合约、分包协议和修订模板。每个模板都附有详细的说明和可定制的条款。",
+        "downloadUrl": "#",
+        "fileSize": "2.4 MB",
+        "format": "DOCX"
+    },
+    {
+        "id": 2,
+        "title": "合约谈判指南",
+        "icon": "📘",
+        "category": "指南",
+        "shortDescription": "建筑合约谈判的最佳实践。",
+        "fullDescription": "全面的指南，涵盖建筑项目的有效合约谈判策略。包括案例研究、谈判技巧、常见陷阱和专家建议，帮助在谈判中取得有利结果。",
+        "downloadUrl": "#",
+        "fileSize": "5.1 MB",
+        "format": "PDF"
+    },
+    {
+        "id": 3,
+        "title": "风险评估工具包",
+        "icon": "⚖️",
+        "category": "工具",
+        "shortDescription": "用于合约风险评估的工具和清单。",
+        "fullDescription": "实用工具包，帮助识别、评估和减轻建筑合约中的风险。包括风险矩阵、评估清单、决策框架和真实项目案例。",
+        "downloadUrl": "#",
+        "fileSize": "3.7 MB",
+        "format": "XLSX"
+    },
+    {
+        "id": 4,
+        "title": "国际合约法律参考",
+        "icon": "⚖️",
+        "category": "参考",
+        "shortDescription": "主要司法管辖区的合约法律比较分析。",
+        "fullDescription": "详细的参考指南，比较不同国家和地区的建筑合约法律。包括关键法律原则、判例法和适用于国际建筑项目的监管框架。定期更新最新的法律发展动态。",
+        "downloadUrl": "#",
+        "fileSize": "8.9 MB",
+        "format": "PDF"
+    },
+    {
+        "id": 5,
+        "title": "合约管理框架",
+        "icon": "🗂️",
+        "category": "研究",
+        "shortDescription": "大型建筑项目的结构化管理方法。",
+        "fullDescription": "基于研究的框架，用于整个项目生命周期的系统化合约管理。包括治理结构、过程工作流程、性能指标和质量保证机制。附有实施指南和成功案例。",
+        "downloadUrl": "#",
+        "fileSize": "4.2 MB",
+        "format": "PDF"
+    },
+    {
+        "id": 6,
+        "title": "数字合约工具",
+        "icon": "💻",
+        "category": "工具",
+        "shortDescription": "现代合约管理的软件和数字解决方案。",
+        "fullDescription": "数字工具和平台的精选目录，用于建筑合约管理。包括协作软件、文档管理系统、合规追踪器和新兴的区块链解决方案的评估和比较。",
+        "downloadUrl": "#",
+        "fileSize": "1.8 MB",
+        "format": "PDF"
+    }
+]
