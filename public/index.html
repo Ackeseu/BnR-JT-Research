@@ -69,13 +69,6 @@
             </div>
         </section>
 
-        <section class="resources">
-            <h2>Resources Hub</h2>
-            <p>Download guides, templates, and tools to help navigate international construction contracts.</p>
-            <div class="resources-grid" id="resources-container"></div>
-            <p style="margin-top: 2rem; text-align: center;"><a href="resources.html" class="btn">View All Resources →</a></p>
-        </section>
-
         <section class="news">
             <h2>Latest News & Updates</h2>
             <div id="news-feed" class="news-container"></div>
@@ -94,25 +87,6 @@
     </footer>
 
     <script>
-        // Load resources
-        function loadResources() {
-            fetch('./resources.json')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('resources-container');
-                    const resourcesHTML = data.resources.slice(0, 6).map(resource => `
-                        <div class="resource-card">
-                            <div class="resource-icon">${resource.icon}</div>
-                            <h3>${resource.title}</h3>
-                            <p>${resource.shortDescription}</p>
-                            <a href="${resource.downloadUrl}" class="btn btn-small">📥 Download PDF</a>
-                        </div>
-                    `).join('');
-                    container.innerHTML = resourcesHTML;
-                })
-                .catch(err => console.error('Error loading resources', err));
-        }
-
         // Load news feed
         function loadNews() {
             fetch('./news1.json')
@@ -171,7 +145,6 @@
         }
 
         // Initialize
-        loadResources();
         loadNews();
         loadUpcomingEvents();
         updateNav();
