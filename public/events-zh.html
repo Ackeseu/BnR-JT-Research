@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - B&R JT Research Co. Limited</title>
+    <title>活動 - 一帶一路建投研究院</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="navbar-content">
-                <div class="logo">🔬 B&R JT Research Co. Limited</div>
+                <div class="logo">🔬 一帶一路建投研究院</div>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="research.html">Research Papers</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="events.html" class="active">Events</a>
-                    <a href="login.html" id="login-link">Member Login</a>
-                    <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
-                    <a href="#" id="logout-link" style="display:none;">Logout</a>
-                    <a href="events-zh.html" class="lang-switch">🌐 中文</a>
+                    <a href="index-zh.html">首頁</a>
+                    <a href="research-zh.html">研究論文</a>
+                    <a href="resources-zh.html">資源中心</a>
+                    <a href="events-zh.html" class="active">活動</a>
+                    <a href="login-zh.html" id="login-link">會員登入</a>
+                    <a href="cms-zh.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="#" id="logout-link" style="display:none;">登出</a>
+                    <a href="events.html" class="lang-switch">🌐 English</a>
                 </div>
             </div>
         </nav>
         <div class="banner">
-            <img src="images/banner.jpg" alt="B&R JT Research—lab and team banner" loading="eager">
+            <img src="images/banner.jpg" alt="一帶一路建投研究院—實驗室及團隊橫幅" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-text">
-                    <p class="eyebrow">Research. Innovation. Impact.</p>
-                    <h1>Advancing discoveries that shape the future.</h1>
-                    <p class="subtitle">From lab to publication, our teams push boundaries in science and technology.</p>
+                    <p class="eyebrow">研究。創新。影響。</p>
+                    <h1>推動塑造未來的發現。</h1>
+                    <p class="subtitle">從實驗室到發表，我們的團隊突破科學與技術的界限。</p>
                     <div class="banner-actions">
-                        <a class="btn" href="research.html">Explore Research</a>
-                        <a class="btn btn-link" href="events.html">See Events</a>
+                        <a class="btn" href="research-zh.html">探索研究</a>
+                        <a class="btn btn-link" href="events-zh.html">查看活動</a>
                     </div>
                 </div>
             </div>
@@ -41,16 +41,16 @@
 
     <main>
         <section>
-            <h2>Upcoming Events</h2>
-            <p>Join us for our upcoming seminars, workshops, and conferences focused on advancing research and innovation.</p>
+            <h2>即將舉行的活動</h2>
+            <p>加入我們的研討會、工作坊和會議，專注於推進研究和創新。</p>
             
             <div class="events-grid" id="events-container"></div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
-        <p>Contact: info@brjtresearch.org | Phone: +852 2888-8888 | Address: Central, Hong Kong</p>
+        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
+        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
     </footer>
 
     <script>
@@ -73,7 +73,7 @@
         }
 
         function loadEvents() {
-            fetch('./events.json')
+            fetch('./events-zh.json')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('events-container');
@@ -83,20 +83,20 @@
                                 <h3>${event.title}</h3>
                             </div>
                             <div class="event-content">
-                                <div class="event-time">📅 ${new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                                <div class="event-time">📅 ${new Date(event.date).toLocaleDateString('zh-TW', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                                 <div class="event-time">🕐 ${event.time}</div>
                                 <div class="event-location">📍 ${event.location}</div>
                                 <p>${event.description}</p>
                                 <div class="paper-actions">
-                                    <a href="mailto:${event.contact_email}" class="btn btn-small">Register Interest</a>
+                                    <a href="mailto:${event.contact_email}" class="btn btn-small">註冊興趣</a>
                                 </div>
                             </div>
                         </div>
                     `).join('');
-                    container.innerHTML = eventsHTML || '<p>No events scheduled at this time.</p>';
+                    container.innerHTML = eventsHTML || '<p>目前沒有計劃的活動。</p>';
                 })
                 .catch(err => {
-                    document.getElementById('events-container').innerHTML = '<p>Error loading events. Please try again later.</p>';
+                    document.getElementById('events-container').innerHTML = '<p>載入活動時出錯。請稍後再試。</p>';
                 });
         }
 

@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Papers - B&R JT Research Co. Limited</title>
+    <title>研究論文 - 一帶一路建投研究院</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="navbar-content">
-                <div class="logo">🔬 B&R JT Research Co. Limited</div>
+                <div class="logo">🔬 一帶一路建投研究院</div>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="research.html" class="active">Research Papers</a>
-                    <a href="resources.html">Resources</a>
-                    <a href="events.html">Events</a>
-                    <a href="login.html" id="login-link">Member Login</a>
-                    <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
-                    <a href="#" id="logout-link" style="display:none;">Logout</a>
-                    <a href="research-zh.html" class="lang-switch">🌐 中文</a>
+                    <a href="index-zh.html">首頁</a>
+                    <a href="research-zh.html" class="active">研究論文</a>
+                    <a href="resources-zh.html">資源中心</a>
+                    <a href="events-zh.html">活動</a>
+                    <a href="login-zh.html" id="login-link">會員登入</a>
+                    <a href="cms-zh.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="#" id="logout-link" style="display:none;">登出</a>
+                    <a href="research.html" class="lang-switch">🌐 English</a>
                 </div>
             </div>
         </nav>
         <div class="banner">
-            <img src="images/banner.jpg" alt="B&R JT Research—lab and team banner" loading="eager">
+            <img src="images/banner.jpg" alt="一帶一路建投研究院—實驗室及團隊橫幅" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-text">
-                    <p class="eyebrow">Research. Innovation. Impact.</p>
-                    <h1>Advancing discoveries that shape the future.</h1>
-                    <p class="subtitle">From lab to publication, our teams push boundaries in science and technology.</p>
+                    <p class="eyebrow">研究。創新。影響。</p>
+                    <h1>推動塑造未來的發現。</h1>
+                    <p class="subtitle">從實驗室到發表，我們的團隊突破科學與技術的界限。</p>
                     <div class="banner-actions">
-                        <a class="btn" href="research.html">Explore Research</a>
-                        <a class="btn btn-link" href="events.html">See Events</a>
+                        <a class="btn" href="research-zh.html">探索研究</a>
+                        <a class="btn btn-link" href="events-zh.html">查看活動</a>
                     </div>
                 </div>
             </div>
@@ -41,21 +41,21 @@
 
     <main>
         <section>
-            <h2>Research Papers & Publications</h2>
-            <p>Browse our collection of peer-reviewed research papers and publications. Members can access exclusive research documents.</p>
+            <h2>研究論文及出版物</h2>
+            <p>瀏覽我們的同行評審研究論文和出版物集合。會員可以訪問獨家研究文件。</p>
             
             <div class="papers-grid" id="papers-container"></div>
 
             <div id="member-only-section" style="display:none; margin-top: 2rem;">
-                <h3 style="color: var(--accent-color);">🔒 Member Exclusive Papers</h3>
+                <h3 style="color: var(--accent-color);">🔒 會員專屬論文</h3>
                 <div class="papers-grid" id="member-papers-container"></div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
-        <p>Contact: info@brjtresearch.org | Phone: +852 2888-8888 | Address: Central, Hong Kong</p>
+        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
+        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
     </footer>
 
     <script>
@@ -92,19 +92,19 @@
                         .map(paper => `
                             <div class="paper-card">
                                 <div class="paper-title">${paper.title}</div>
-                                <div class="paper-authors">By: ${paper.authors}</div>
-                                <div class="paper-year">Published: ${paper.year}</div>
+                                <div class="paper-authors">作者：${paper.authors}</div>
+                                <div class="paper-year">出版：${paper.year}</div>
                                 <div class="paper-abstract">${paper.abstract}</div>
                                 <div class="paper-actions">
-                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 Download PDF</a>
-                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">View on DOI</a>
+                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 下載PDF</a>
+                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">在DOI上查看</a>
                                 </div>
                             </div>
                         `).join('');
-                    container.innerHTML = papersHTML || '<p>No papers available at this time.</p>';
+                    container.innerHTML = papersHTML || '<p>目前沒有可用的論文。</p>';
                 })
                 .catch(err => {
-                    document.getElementById('papers-container').innerHTML = '<p>Error loading papers. Please try again later.</p>';
+                    document.getElementById('papers-container').innerHTML = '<p>載入論文時出錯。請稍後再試。</p>';
                 });
         }
 
@@ -119,18 +119,18 @@
                         .map(paper => `
                             <div class="paper-card" style="border-left: 4px solid var(--accent-color);">
                                 <div class="paper-title">${paper.title}</div>
-                                <div class="paper-authors">By: ${paper.authors}</div>
-                                <div class="paper-year">Published: ${paper.year}</div>
+                                <div class="paper-authors">作者：${paper.authors}</div>
+                                <div class="paper-year">出版：${paper.year}</div>
                                 <div class="paper-abstract">${paper.abstract}</div>
                                 <div class="paper-actions">
-                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 Download PDF</a>
-                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">View on DOI</a>
+                                    <a href="${paper.pdf_url}" class="btn btn-small" download>📥 下載PDF</a>
+                                    <a href="${paper.doi_url}" target="_blank" class="btn btn-small" style="background-color: #95a5a6;">在DOI上查看</a>
                                 </div>
                             </div>
                         `).join('');
-                    container.innerHTML = papersHTML || '<p>No exclusive papers at this time.</p>';
+                    container.innerHTML = papersHTML || '<p>目前沒有獨家論文。</p>';
                 })
-                .catch(err => console.error('Error loading member papers'));
+                .catch(err => console.error('載入會員論文時出錯'));
         }
 
         // Initialize

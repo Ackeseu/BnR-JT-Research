@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>內容管理系統 - 一帶一路建投研究院</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cms-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .cms-nav { display: flex; border-bottom: 2px solid #eee; margin-bottom: 2rem; }
+        .cms-nav button { background: none; border: none; padding: 1rem 2rem; cursor: pointer; font-size: 1rem; }
+        .cms-nav button.active { border-bottom: 3px solid var(--primary-color); color: var(--primary-color); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+        .form-group textarea { min-height: 150px; }
+        .items-list { margin-top: 2rem; }
+        .item-card { background: #f9f9f9; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+        .item-actions { margin-top: 1rem; }
+        .item-actions button { margin-right: 0.5rem; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-delete { background-color: var(--accent-color); color: white; }
+        .btn-edit { background-color: var(--secondary-color); color: white; }
+        .message { padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+        .message.success { background-color: #d4edda; color: #155724; }
+        .message.error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 一帶一路建投研究院</div>
+                <div class="nav-links">
+                    <a href="index-zh.html">首頁</a>
+                    <a href="research-zh.html">研究論文</a>
+                    <a href="resources-zh.html">資源中心</a>
+                    <a href="events-zh.html">活動</a>
+                    <a href="login-zh.html" id="login-link">會員登入</a>
+                    <a href="cms-zh.html" class="active" id="cms-link">管理平台</a>
+                    <a href="cms.html" class="lang-switch">🌐 English</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="一帶一路建投研究院" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">內容管理</p>
+                    <h1>管理您的研究內容</h1>
+                    <p class="subtitle">添加、編輯和管理新聞、活動、論文和用戶。</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="cms-container">
+            <div id="message-container"></div>
+
+            <div class="cms-nav">
+                <button class="active" onclick="showTab('news')">新聞</button>
+                <button onclick="showTab('events')">活動</button>
+                <button onclick="showTab('papers')">論文</button>
+                <button onclick="showTab('users')">用戶</button>
+            </div>
+
+            <!-- News Tab -->
+            <div id="news-tab" class="tab-content active">
+                <h2>管理新聞</h2>
+                <form onsubmit="addNews(event)">
+                    <div class="form-group">
+                        <label for="news-title">標題</label>
+                        <input type="text" id="news-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="news-date">日期</label>
+                        <input type="date" id="news-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="news-excerpt">摘要</label>
+                        <textarea id="news-excerpt" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">添加新聞</button>
+                </form>
+                <div id="news-list" class="items-list"></div>
+            </div>
+
+            <!-- Events Tab -->
+            <div id="events-tab" class="tab-content">
+                <h2>管理活動</h2>
+                <form onsubmit="addEvent(event)">
+                    <div class="form-group">
+                        <label for="event-title">活動標題</label>
+                        <input type="text" id="event-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-date">日期</label>
+                        <input type="date" id="event-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-time">時間</label>
+                        <input type="time" id="event-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-location">地點</label>
+                        <input type="text" id="event-location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-description">描述</label>
+                        <textarea id="event-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-email">聯絡電子郵件</label>
+                        <input type="email" id="event-email" required>
+                    </div>
+                    <button type="submit" class="btn">添加活動</button>
+                </form>
+                <div id="events-list" class="items-list"></div>
+            </div>
+
+            <!-- Papers Tab -->
+            <div id="papers-tab" class="tab-content">
+                <h2>管理研究論文</h2>
+                <form onsubmit="addPaper(event)">
+                    <div class="form-group">
+                        <label for="paper-title">論文標題</label>
+                        <input type="text" id="paper-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-authors">作者</label>
+                        <input type="text" id="paper-authors" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-journal">期刊</label>
+                        <input type="text" id="paper-journal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-year">年份</label>
+                        <input type="number" id="paper-year" required min="1900" max="2100">
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-doi">DOI</label>
+                        <input type="text" id="paper-doi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-pdf">PDF URL</label>
+                        <input type="url" id="paper-pdf">
+                    </div>
+                    <div class="form-group">
+                        <label for="paper-member-only">僅限會員</label>
+                        <select id="paper-member-only">
+                            <option value="false">否</option>
+                            <option value="true">是</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">添加論文</button>
+                </form>
+                <div id="papers-list" class="items-list"></div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="users-tab" class="tab-content">
+                <h2>管理用戶</h2>
+                <form onsubmit="addUser(event)">
+                    <div class="form-group">
+                        <label for="user-email">電子郵件</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-name">姓名</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-role">角色</label>
+                        <select id="user-role">
+                            <option value="member">會員</option>
+                            <option value="admin">管理員</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">添加用戶</button>
+                </form>
+                <div id="users-list" class="items-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
+        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
+    </footer>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                window.location.href = 'login-zh.html';
+                return false;
+            }
+            return true;
+        }
+
+        checkAuth();
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.cms-nav button').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showMessage(message, type = 'success') {
+            const container = document.getElementById('message-container');
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 3000);
+        }
+
+        function addNews(event) {
+            event.preventDefault();
+            const title = document.getElementById('news-title').value;
+            const date = document.getElementById('news-date').value;
+            const excerpt = document.getElementById('news-excerpt').value;
+            
+            showMessage('新聞已成功添加！');
+            event.target.reset();
+            loadNews();
+        }
+
+        function addEvent(event) {
+            event.preventDefault();
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const location = document.getElementById('event-location').value;
+            const description = document.getElementById('event-description').value;
+            const email = document.getElementById('event-email').value;
+            
+            showMessage('活動已成功添加！');
+            event.target.reset();
+            loadEvents();
+        }
+
+        function addPaper(event) {
+            event.preventDefault();
+            const title = document.getElementById('paper-title').value;
+            const authors = document.getElementById('paper-authors').value;
+            const journal = document.getElementById('paper-journal').value;
+            const year = document.getElementById('paper-year').value;
+            const doi = document.getElementById('paper-doi').value;
+            
+            showMessage('論文已成功添加！');
+            event.target.reset();
+            loadPapers();
+        }
+
+        function addUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('user-email').value;
+            const name = document.getElementById('user-name').value;
+            const role = document.getElementById('user-role').value;
+            
+            showMessage('用戶已成功添加！');
+            event.target.reset();
+            loadUsers();
+        }
+
+        function loadNews() {
+            fetch('news1-zh.json')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('news-list');
+                    list.innerHTML = '<h3>現有新聞</h3>';
+                    data.forEach(item => {
+                        list.innerHTML += `
+                            <div class="item-card">
+                                <h4>${item.title}</h4>
+                                <p><strong>日期：</strong> ${item.date}</p>
+                                <p>${item.excerpt}</p>
+                                <div class="item-actions">
+                                    <button class="btn-edit">編輯</button>
+                                    <button class="btn-delete">刪除</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        function loadEvents() {
+            fetch('events-zh.json')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('events-list');
+                    list.innerHTML = '<h3>現有活動</h3>';
+                    data.forEach(item => {
+                        list.innerHTML += `
+                            <div class="item-card">
+                                <h4>${item.title}</h4>
+                                <p><strong>日期：</strong> ${item.date} ${item.time}</p>
+                                <p><strong>地點：</strong> ${item.location}</p>
+                                <p>${item.description}</p>
+                                <div class="item-actions">
+                                    <button class="btn-edit">編輯</button>
+                                    <button class="btn-delete">刪除</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        function loadPapers() {
+            fetch('papers.json')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('papers-list');
+                    list.innerHTML = '<h3>現有論文</h3>';
+                    data.public.concat(data.members).forEach(item => {
+                        list.innerHTML += `
+                            <div class="item-card">
+                                <h4>${item.title}</h4>
+                                <p><strong>作者：</strong> ${item.authors}</p>
+                                <p><strong>期刊：</strong> ${item.journal} (${item.year})</p>
+                                <div class="item-actions">
+                                    <button class="btn-edit">編輯</button>
+                                    <button class="btn-delete">刪除</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        function loadUsers() {
+            const list = document.getElementById('users-list');
+            list.innerHTML = '<h3>現有用戶</h3><p>用戶管理功能將在完整後端實施時可用。</p>';
+        }
+
+        loadNews();
+        loadEvents();
+        loadPapers();
+        loadUsers();
+    </script>
+</body>
+</html>

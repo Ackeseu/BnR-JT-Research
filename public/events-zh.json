@@ -1,0 +1,58 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "2026年度研究大會",
+      "date": "2026-03-15",
+      "time": "上午9:00 - 下午5:00",
+      "location": "會議中心，大禮堂A",
+      "description": "與來自世界各地的領先研究人員一起參加我們的年度旗艦會議。主題包括人工智能、量子計算、氣候科學和可持續能源。註冊包含午餐和社交招待會。",
+      "contact_email": "conference@researchinstitute.org"
+    },
+    {
+      "id": 2,
+      "title": "機器學習大師班工作坊",
+      "date": "2026-02-20",
+      "time": "上午10:00 - 下午4:00",
+      "location": "科技創新實驗室，201室",
+      "description": "由陳博士領導的實踐工作坊，涵蓋高級機器學習技術。參與者將使用真實數據集和最先進的框架。限30名參與者。",
+      "contact_email": "workshops@researchinstitute.org"
+    },
+    {
+      "id": 3,
+      "title": "氣候科學研討會系列 - 第一場",
+      "date": "2026-02-05",
+      "time": "下午2:00 - 3:30",
+      "location": "主樓，禮堂",
+      "description": "氣候科學研討會系列的第一場。格林教授將討論生物多樣性保護策略的最新發現。",
+      "contact_email": "seminars@researchinstitute.org"
+    },
+    {
+      "id": 4,
+      "title": "量子計算與藥物發現專家座談會",
+      "date": "2026-03-01",
+      "time": "下午3:00 - 4:30",
+      "location": "線上活動 - Zoom連結將發送",
+      "description": "專家小組討論量子計算在製藥研究中的應用。由威廉斯博士和來自領先生物技術公司的行業專家主講。",
+      "contact_email": "events@researchinstitute.org"
+    },
+    {
+      "id": 5,
+      "title": "會員專屬：高級研究方法工作坊",
+      "date": "2026-02-28",
+      "time": "下午1:00 - 5:00",
+      "location": "高級實驗室設施，C樓",
+      "description": "會員專屬工作坊，涵蓋專有研究方法和高級分析技術。",
+      "contact_email": "members@researchinstitute.org"
+    },
+    {
+      "id": 6,
+      "title": "可持續材料論壇",
+      "date": "2026-04-10",
+      "time": "上午10:00 - 中午12:00",
+      "location": "創新中心，會議室3",
+      "description": "討論可持續材料科學最新發展的論壇。與材料科學家、工程師和行業合作夥伴建立聯繫。",
+      "contact_email": "forums@researchinstitute.org"
+    }
+  ]
+}

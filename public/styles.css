@@ -73,6 +73,17 @@ header {
     border-bottom-color: #ffd700;
 }
 
+.lang-switch {
+    background: rgba(255,255,255,0.1);
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.lang-switch:hover {
+    background: rgba(255,255,255,0.2);
+}
+
 /* Main Content */
 main {
     max-width: 1200px;

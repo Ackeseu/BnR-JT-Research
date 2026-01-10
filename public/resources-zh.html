@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources - B&R JT Research Co. Limited</title>
+    <title>資源中心 - 一帶一路建投研究院</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="navbar-content">
-                <div class="logo">🔬 B&R JT Research Co. Limited</div>
+                <div class="logo">🔬 一帶一路建投研究院</div>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="research.html">Research Papers</a>
-                    <a href="resources.html" class="active">Resources</a>
-                    <a href="events.html">Events</a>
-                    <a href="login.html" id="login-link">Member Login</a>
-                    <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
-                    <a href="#" id="logout-link" style="display:none;">Logout</a>
-                    <a href="resources-zh.html" class="lang-switch">🌐 中文</a>
+                    <a href="index-zh.html">首頁</a>
+                    <a href="research-zh.html">研究論文</a>
+                    <a href="resources-zh.html" class="active">資源中心</a>
+                    <a href="events-zh.html">活動</a>
+                    <a href="login-zh.html" id="login-link">會員登入</a>
+                    <a href="cms-zh.html" id="cms-link" style="display:none;">管理平台</a>
+                    <a href="#" id="logout-link" style="display:none;">登出</a>
+                    <a href="resources.html" class="lang-switch">🌐 English</a>
                 </div>
             </div>
         </nav>
         <div class="banner">
-            <img src="images/banner.jpg" alt="B&R JT Research—lab and team banner" loading="eager">
+            <img src="images/banner.jpg" alt="一帶一路建投研究院—實驗室及團隊橫幅" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-text">
-                    <p class="eyebrow">Research. Innovation. Impact.</p>
-                    <h1>Advancing discoveries that shape the future.</h1>
-                    <p class="subtitle">From lab to publication, our teams push boundaries in science and technology.</p>
+                    <p class="eyebrow">研究。創新。影響。</p>
+                    <h1>推動塑造未來的發現。</h1>
+                    <p class="subtitle">從實驗室到發表，我們的團隊突破科學與技術的界限。</p>
                     <div class="banner-actions">
-                        <a class="btn" href="research.html">Explore Research</a>
-                        <a class="btn btn-link" href="events.html">See Events</a>
+                        <a class="btn" href="research-zh.html">探索研究</a>
+                        <a class="btn btn-link" href="events-zh.html">查看活動</a>
                     </div>
                 </div>
             </div>
@@ -41,18 +41,18 @@
 
     <main>
         <section>
-            <h2>Resource Library</h2>
-            <p>Access our comprehensive collection of guides, templates, and tools for international construction contracts.</p>
+            <h2>資源庫</h2>
+            <p>訪問我們全面的國際建築合約指南、範本和工具集合。</p>
             
             <div style="margin-bottom: 3rem;">
-                <label for="filter-category" style="font-weight: bold; margin-right: 1rem;">Filter by Category:</label>
+                <label for="filter-category" style="font-weight: bold; margin-right: 1rem;">按類別篩選：</label>
                 <select id="filter-category" style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 5px;">
-                    <option value="">All Resources</option>
-                    <option value="Templates">Templates</option>
-                    <option value="Guides">Guides</option>
-                    <option value="Tools">Tools</option>
-                    <option value="Reference">Reference</option>
-                    <option value="Research">Research</option>
+                    <option value="">所有資源</option>
+                    <option value="範本">範本</option>
+                    <option value="指南">指南</option>
+                    <option value="工具">工具</option>
+                    <option value="參考">參考</option>
+                    <option value="研究">研究</option>
                 </select>
             </div>
 
@@ -61,15 +61,15 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
-        <p>Contact: info@brjtresearch.org | Phone: +852 2888-8888 | Address: Central, Hong Kong</p>
+        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
+        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
     </footer>
 
     <script>
         let allResources = [];
 
         function loadAllResources() {
-            fetch('./resources.json')
+            fetch('./resources-zh.json')
                 .then(response => response.json())
                 .then(data => {
                     allResources = data.resources;
@@ -82,7 +82,7 @@
             const container = document.getElementById('resources-full-container');
             
             if (resourcesToRender.length === 0) {
-                container.innerHTML = '<p>No resources found in this category.</p>';
+                container.innerHTML = '<p>此類別中沒有找到資源。</p>';
                 return;
             }
 
@@ -92,10 +92,10 @@
                         <div style="font-size: 4rem; min-width: 100px; text-align: center;">${resource.icon}</div>
                         <div style="flex-grow: 1;">
                             <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">${resource.title}</h3>
-                            <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>Category:</strong> ${resource.category}</p>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>類別：</strong> ${resource.category}</p>
                             <p style="margin-bottom: 1rem; line-height: 1.6;">${resource.fullDescription}</p>
                             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                                <a href="${resource.downloadUrl}" class="btn btn-small">📥 Download (${resource.fileSize})</a>
+                                <a href="${resource.downloadUrl}" class="btn btn-small">📥 下載 (${resource.fileSize})</a>
                                 <span style="color: #7f8c8d; font-size: 0.9rem;">${resource.format}</span>
                             </div>
                         </div>

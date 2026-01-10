@@ -1,0 +1,70 @@
+{
+  "resources": [
+    {
+      "id": 1,
+      "title": "合約範本",
+      "icon": "📋",
+      "category": "範本",
+      "shortDescription": "跨境專案的標準國際建築合約範本。",
+      "fullDescription": "專業草擬的合約範本，涵蓋FIDIC、NEC和定制國際協議。範本包括付款條款、爭議解決、不可抗力和責任限制條款，專為涉及多個司法管轄區的專案量身定制。",
+      "downloadUrl": "#",
+      "fileSize": "2.5 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 2,
+      "title": "合約比較指南",
+      "icon": "📊",
+      "category": "指南",
+      "shortDescription": "全球主要建築市場合約的並排分析。",
+      "fullDescription": "全面比較15個以上主要市場（包括美國、英國、歐盟、中東和亞太地區）的建築合約標準。重點介紹風險分配、爭議解決和監管要求的主要差異。",
+      "downloadUrl": "#",
+      "fileSize": "3.8 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 3,
+      "title": "國家法律框架",
+      "icon": "🌍",
+      "category": "參考",
+      "shortDescription": "各國建築合約法律法規概述。",
+      "fullDescription": "20多個國家的詳細法律框架摘要，涵蓋法定要求、強制性合約條款、執行機制和國際建築專案的合規考慮因素。",
+      "downloadUrl": "#",
+      "fileSize": "4.2 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 4,
+      "title": "風險管理檢查清單",
+      "icon": "⚖️",
+      "category": "工具",
+      "shortDescription": "識別和減輕合約風險的必備檢查清單。",
+      "fullDescription": "互動式檢查清單，涵蓋財務風險、法律風險、運營風險和政治風險。包括針對跨境建築合約的評估標準和緩解策略。",
+      "downloadUrl": "#",
+      "fileSize": "1.2 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 5,
+      "title": "爭議解決指南",
+      "icon": "📖",
+      "category": "指南",
+      "shortDescription": "建築領域仲裁、調解和訴訟的綜合指南。",
+      "fullDescription": "深入探討爭議解決機制，包括ICC、LCIA和UNCITRAL仲裁規則。涵蓋程序方面、成本考量和國際建築爭議的策略建議。",
+      "downloadUrl": "#",
+      "fileSize": "3.1 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 6,
+      "title": "最佳實踐白皮書",
+      "icon": "🔍",
+      "category": "研究",
+      "shortDescription": "起草和談判建築合約的行業最佳實踐。",
+      "fullDescription": "基於對500多份國際建築合約分析的研究論文。確定全球領先承包商和開發商使用的條款起草、談判策略和風險分配技術的最佳實踐。",
+      "downloadUrl": "#",
+      "fileSize": "2.8 MB",
+      "format": "PDF"
+    }
+  ]
+}
