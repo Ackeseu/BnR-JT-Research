@@ -1,0 +1,70 @@
+{
+  "resources": [
+    {
+      "id": 1,
+      "title": "Contract Templates",
+      "icon": "📋",
+      "category": "Templates",
+      "shortDescription": "Standard international construction contract templates for cross-border projects.",
+      "fullDescription": "Professionally drafted contract templates covering FIDIC, NEC, and custom international agreements. Templates include clauses for payment terms, dispute resolution, force majeure, and liability limitations tailored for projects involving multiple jurisdictions.",
+      "downloadUrl": "#",
+      "fileSize": "2.5 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 2,
+      "title": "Contract Comparison Guide",
+      "icon": "📊",
+      "category": "Guides",
+      "shortDescription": "Side-by-side analysis of contracts from major construction markets worldwide.",
+      "fullDescription": "Comprehensive comparison of construction contract standards across 15+ major markets including US, UK, EU, Middle East, and Asia-Pacific regions. Highlights key differences in risk allocation, dispute resolution, and regulatory requirements.",
+      "downloadUrl": "#",
+      "fileSize": "3.8 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 3,
+      "title": "Country Legal Frameworks",
+      "icon": "🌍",
+      "category": "Reference",
+      "shortDescription": "Overview of construction contract laws and regulations by country.",
+      "fullDescription": "Detailed legal framework summaries for 20+ countries covering statutory requirements, mandatory contract terms, enforcement mechanisms, and compliance considerations for international construction projects.",
+      "downloadUrl": "#",
+      "fileSize": "4.2 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 4,
+      "title": "Risk Management Checklist",
+      "icon": "⚖️",
+      "category": "Tools",
+      "shortDescription": "Essential checklist for identifying and mitigating contract risks.",
+      "fullDescription": "Interactive checklist covering financial risks, legal risks, operational risks, and political risks. Includes assessment criteria and mitigation strategies specific to cross-border construction contracts.",
+      "downloadUrl": "#",
+      "fileSize": "1.2 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 5,
+      "title": "Dispute Resolution Guide",
+      "icon": "📖",
+      "category": "Guides",
+      "shortDescription": "Comprehensive guide to arbitration, mediation, and litigation in construction.",
+      "fullDescription": "In-depth exploration of dispute resolution mechanisms including ICC, LCIA, and UNCITRAL arbitration rules. Covers procedural aspects, cost considerations, and strategic recommendations for international construction disputes.",
+      "downloadUrl": "#",
+      "fileSize": "3.1 MB",
+      "format": "PDF"
+    },
+    {
+      "id": 6,
+      "title": "Best Practices White Paper",
+      "icon": "🔍",
+      "category": "Research",
+      "shortDescription": "Industry best practices for drafting and negotiating construction contracts.",
+      "fullDescription": "Research paper based on analysis of 500+ international construction contracts. Identifies best practices in clause drafting, negotiation strategies, and risk allocation techniques used by leading global contractors and developers.",
+      "downloadUrl": "#",
+      "fileSize": "2.8 MB",
+      "format": "PDF"
+    }
+  ]
+}

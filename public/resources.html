@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - B&R JT Research Co. Limited</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">🔬 B&R JT Research Co. Limited</div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research Papers</a>
+                    <a href="resources.html" class="active">Resources</a>
+                    <a href="events.html">Events</a>
+                    <a href="login.html" id="login-link">Member Login</a>
+                    <a href="cms.html" id="cms-link" style="display:none;">Dashboard</a>
+                    <a href="#" id="logout-link" style="display:none;">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="images/banner.jpg" alt="B&R JT Research—lab and team banner" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-text">
+                    <p class="eyebrow">Research. Innovation. Impact.</p>
+                    <h1>Advancing discoveries that shape the future.</h1>
+                    <p class="subtitle">From lab to publication, our teams push boundaries in science and technology.</p>
+                    <div class="banner-actions">
+                        <a class="btn" href="research.html">Explore Research</a>
+                        <a class="btn btn-link" href="events.html">See Events</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>Resource Library</h2>
+            <p>Access our comprehensive collection of guides, templates, and tools for international construction contracts.</p>
+            
+            <div style="margin-bottom: 3rem;">
+                <label for="filter-category" style="font-weight: bold; margin-right: 1rem;">Filter by Category:</label>
+                <select id="filter-category" style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 5px;">
+                    <option value="">All Resources</option>
+                    <option value="Templates">Templates</option>
+                    <option value="Guides">Guides</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Reference">Reference</option>
+                    <option value="Research">Research</option>
+                </select>
+            </div>
+
+            <div id="resources-full-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
+        <p>Contact: info@brjtresearch.org | Phone: +852 2888-8888 | Address: Central, Hong Kong</p>
+    </footer>
+
+    <script>
+        let allResources = [];
+
+        function loadAllResources() {
+            fetch('./resources.json')
+                .then(response => response.json())
+                .then(data => {
+                    allResources = data.resources;
+                    renderResources(allResources);
+                })
+                .catch(err => console.error('Error loading resources', err));
+        }
+
+        function renderResources(resourcesToRender) {
+            const container = document.getElementById('resources-full-container');
+            
+            if (resourcesToRender.length === 0) {
+                container.innerHTML = '<p>No resources found in this category.</p>';
+                return;
+            }
+
+            const resourcesHTML = resourcesToRender.map(resource => `
+                <div class="resource-detail-card">
+                    <div style="display: flex; align-items: flex-start; gap: 2rem;">
+                        <div style="font-size: 4rem; min-width: 100px; text-align: center;">${resource.icon}</div>
+                        <div style="flex-grow: 1;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">${resource.title}</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>Category:</strong> ${resource.category}</p>
+                            <p style="margin-bottom: 1rem; line-height: 1.6;">${resource.fullDescription}</p>
+                            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                                <a href="${resource.downloadUrl}" class="btn btn-small">📥 Download (${resource.fileSize})</a>
+                                <span style="color: #7f8c8d; font-size: 0.9rem;">${resource.format}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = resourcesHTML;
+        }
+
+        function filterResources() {
+            const category = document.getElementById('filter-category').value;
+            
+            if (category === '') {
+                renderResources(allResources);
+            } else {
+                const filtered = allResources.filter(resource => resource.category === category);
+                renderResources(filtered);
+            }
+        }
+
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const loginLink = document.getElementById('login-link');
+            const cmsLink = document.getElementById('cms-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                cmsLink.style.display = 'inline-block';
+                logoutLink.style.display = 'inline-block';
+                logoutLink.onclick = (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('authToken');
+                    window.location.reload();
+                };
+            }
+        }
+
+        // Event listener for filter
+        document.getElementById('filter-category').addEventListener('change', filterResources);
+
+        // Initialize
+        loadAllResources();
+        checkAuth();
+    </script>
+</body>
+</html>
