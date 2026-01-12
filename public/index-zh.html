@@ -115,17 +115,19 @@
                         const newsHTML = `
                             <div class="news-item">
                                 <h3>${data.title}</h3>
-                            <p class="news-date">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                            <p>${data.content}</p>
-                        </div>
-                    `;
-                    newsFeed.innerHTML = newsHTML;
-                })
-                .catch(err => console.log('News feed loaded from cache'));
+                                <p class="news-date">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <p>${data.content}</p>
+                            </div>
+                        `;
+                        newsFeed.innerHTML = newsHTML;
+                    })
+                    .catch(err => console.log('News feed loaded from cache'));
+            }
         }
 
         // Load upcoming events preview
-        function loadUpcomingEvents() {            // First check for custom events in localStorage
+        function loadUpcomingEvents() {
+            // First check for custom events in localStorage
             const customEvents = JSON.parse(localStorage.getItem('customEvents') || '[]');
             
             if (customEvents.length > 0) {
@@ -142,7 +144,8 @@
                 return;
             }
             
-            // Fall back to loading from JSON file            fetch('./events-zh.json')
+            // Fall back to loading from JSON file
+            fetch('./events-zh.json')
                 .then(response => response.json())
                 .then(data => {
                     const preview = document.getElementById('upcoming-events-preview');

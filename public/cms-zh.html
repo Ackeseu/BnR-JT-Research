@@ -61,10 +61,10 @@
             <div id="message-container"></div>
 
             <div class="cms-nav">
-                <button class="active" onclick="showTab('news')">新聞</button>
-                <button onclick="showTab('events')">活動</button>
-                <button onclick="showTab('papers')">論文</button>
-                <button onclick="showTab('users')">用戶</button>
+                <button class="active" onclick="showTab('news', this)">新聞</button>
+                <button onclick="showTab('events', this)">活動</button>
+                <button onclick="showTab('papers', this)">論文</button>
+                <button onclick="showTab('users', this)">用戶</button>
             </div>
 
             <!-- News Tab -->
@@ -76,14 +76,23 @@
                         <input type="text" id="news-title" required>
                     </div>
                     <div class="form-group">
-                        <label for="news-date">日期</label>
-                        <input type="date" id="news-date" required>
+                        <label for="news-content">內容</label>
+                        <textarea id="news-content" placeholder="新聞內容" style="width: 100%; min-height: 150px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit;"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="news-excerpt">摘要</label>
-                        <textarea id="news-excerpt" required></textarea>
+                        <label for="news-image">圖片網址（選填）</label>
+                        <input type="url" id="news-image" placeholder="https://example.com/image.jpg">
+                        <small style="color: #666; display: block; margin-top: 0.5rem;">輸入圖片直接連結，或上傳到 images/ 資料夾並使用相對路徑（例如：images/news-photo.jpg）</small>
                     </div>
-                    <button type="submit" class="btn">添加新聞</button>
+                    <div class="form-group">
+                        <label for="news-image-upload">或上傳圖片</label>
+                        <input type="file" id="news-image-upload" accept="image/*" onchange="previewImage(this)">
+                        <div id="image-preview" style="margin-top: 1rem; display: none;">
+                            <img id="preview-img" style="max-width: 100%; max-height: 200px; border-radius: 8px;" />
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">注意：圖片將轉換為 base64 並儲存在瀏覽器中。生產環境請上傳到 images/ 資料夾並使用網址欄位。</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">📤 發布新聞</button>
                 </form>
                 <div id="news-list" class="items-list"></div>
             </div>
@@ -116,7 +125,20 @@
                         <label for="event-email">聯絡電子郵件</label>
                         <input type="email" id="event-email" required>
                     </div>
-                    <button type="submit" class="btn">添加活動</button>
+                    <div class="form-group">
+                        <label for="event-image">活動圖片網址（選填）</label>
+                        <input type="url" id="event-image" placeholder="https://example.com/event-image.jpg">
+                        <small style="color: #666; display: block; margin-top: 0.5rem;">輸入圖片直接連結，或上傳到 images/ 資料夾並使用相對路徑（例如：images/event-photo.jpg）</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-image-upload">或上傳活動圖片</label>
+                        <input type="file" id="event-image-upload" accept="image/*" onchange="previewEventImage(this)">
+                        <div id="event-image-preview" style="margin-top: 1rem; display: none;">
+                            <img id="event-preview-img" style="max-width: 100%; max-height: 200px; border-radius: 8px;" />
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">注意：圖片將轉換為 base64 並儲存在瀏覽器中。生產環境請上傳到 images/ 資料夾並使用網址欄位。</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">📅 建立活動</button>
                 </form>
                 <div id="events-list" class="items-list"></div>
             </div>
@@ -193,6 +215,37 @@
     </footer>
 
     <script>
+        // Define showTab first to ensure it's available
+        function showTab(tabName, buttonElement) {
+            console.log('showTab called with:', tabName);
+            
+            // Hide all tab contents
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            const allButtons = document.querySelectorAll('.cms-nav button');
+            allButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName + '-tab');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+                console.log('Activated tab:', tabName);
+            } else {
+                console.error('Tab not found:', tabName + '-tab');
+            }
+            
+            // Activate clicked button
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+        }
+
         function checkAuth() {
             const token = localStorage.getItem('authToken');
             if (!token) {
@@ -204,29 +257,87 @@
 
         checkAuth();
 
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.cms-nav button').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabName + '-tab').classList.add('active');
-            event.target.classList.add('active');
-        }
-
         function showMessage(message, type = 'success') {
             const container = document.getElementById('message-container');
             container.innerHTML = `<div class="message ${type}">${message}</div>`;
             setTimeout(() => container.innerHTML = '', 3000);
         }
 
+        function previewImage(input) {
+            const preview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
         function addNews(event) {
             event.preventDefault();
             const title = document.getElementById('news-title').value;
-            const date = document.getElementById('news-date').value;
-            const excerpt = document.getElementById('news-excerpt').value;
+            const content = document.getElementById('news-content').value;
+            const imageUrl = document.getElementById('news-image').value;
+            const imageFile = document.getElementById('news-image-upload').files[0];
             
-            showMessage('新聞已成功添加！');
-            event.target.reset();
-            loadNews();
+            if (title && content) {
+                const newsData = { 
+                    title, 
+                    date: new Date().toISOString().split('T')[0], 
+                    content,
+                    image: imageUrl || null
+                };
+                
+                // If image file was uploaded, convert to base64
+                if (imageFile && !imageUrl) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newsData.image = e.target.result;
+                        localStorage.setItem('latestNews', JSON.stringify(newsData));
+                        alert('✓ 新聞文章已成功發布！請重新整理首頁以查看更新。');
+                        clearNewsForm();
+                        loadNews();
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    localStorage.setItem('latestNews', JSON.stringify(newsData));
+                    alert('✓ 新聞文章已成功發布！請重新整理首頁以查看更新。');
+                    clearNewsForm();
+                    loadNews();
+                }
+            } else {
+                alert('請填寫標題和內容欄位');
+            }
+        }
+        
+        function clearNewsForm() {
+            document.getElementById('news-title').value = '';
+            document.getElementById('news-content').value = '';
+            document.getElementById('news-image').value = '';
+            document.getElementById('news-image-upload').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+        }
+
+        function previewEventImage(input) {
+            const preview = document.getElementById('event-image-preview');
+            const previewImg = document.getElementById('event-preview-img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
         }
 
         function addEvent(event) {
@@ -237,10 +348,53 @@
             const location = document.getElementById('event-location').value;
             const description = document.getElementById('event-description').value;
             const email = document.getElementById('event-email').value;
+            const imageUrl = document.getElementById('event-image').value;
+            const imageFile = document.getElementById('event-image-upload').files[0];
             
-            showMessage('活動已成功添加！');
-            event.target.reset();
-            loadEvents();
+            if (title && date && location && description) {
+                const newEvent = {
+                    id: Date.now(),
+                    title, date, time, location, description,
+                    contact_email: email,
+                    image: imageUrl || null
+                };
+                
+                // If image file was uploaded, convert to base64
+                if (imageFile && !imageUrl) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newEvent.image = e.target.result;
+                        let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                        events.push(newEvent);
+                        localStorage.setItem('customEvents', JSON.stringify(events));
+                        alert('✓ 活動已成功創建！請重新整理活動頁面以查看。');
+                        clearEventForm();
+                        loadEvents();
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                    events.push(newEvent);
+                    localStorage.setItem('customEvents', JSON.stringify(events));
+                    alert('✓ 活動已成功創建！請重新整理活動頁面以查看。');
+                    clearEventForm();
+                    loadEvents();
+                }
+            } else {
+                alert('請填寫所有必填欄位（標題、日期、地點、描述）');
+            }
+        }
+        
+        function clearEventForm() {
+            document.getElementById('event-title').value = '';
+            document.getElementById('event-date').value = '';
+            document.getElementById('event-time').value = '';
+            document.getElementById('event-location').value = '';
+            document.getElementById('event-description').value = '';
+            document.getElementById('event-email').value = '';
+            document.getElementById('event-image').value = '';
+            document.getElementById('event-image-upload').value = '';
+            document.getElementById('event-image-preview').style.display = 'none';
         }
 
         function addPaper(event) {
@@ -268,48 +422,62 @@
         }
 
         function loadNews() {
-            fetch('news1-zh.json')
-                .then(response => response.json())
-                .then(data => {
-                    const list = document.getElementById('news-list');
-                    list.innerHTML = '<h3>現有新聞</h3>';
-                    data.forEach(item => {
-                        list.innerHTML += `
-                            <div class="item-card">
-                                <h4>${item.title}</h4>
-                                <p><strong>日期：</strong> ${item.date}</p>
-                                <p>${item.excerpt}</p>
-                                <div class="item-actions">
-                                    <button class="btn-edit">編輯</button>
-                                    <button class="btn-delete">刪除</button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                });
+            const newsData = JSON.parse(localStorage.getItem('latestNews') || '{}');
+            const list = document.getElementById('news-list');
+            
+            if (newsData.title) {
+                list.innerHTML = `
+                    <h3>最新新聞</h3>
+                    <div class="news-item" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+                        ${newsData.image ? `<img src="${newsData.image}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;" alt="${newsData.title}">` : ''}
+                        <h4>${newsData.title}</h4>
+                        <p class="news-date">${newsData.date}</p>
+                        <p>${newsData.content}</p>
+                        <button class="btn-delete" onclick="deleteNews()">刪除</button>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = '<p>尚無新聞文章。</p>';
+            }
+        }
+
+        function deleteNews() {
+            if (confirm('確定要刪除此新聞文章嗎？')) {
+                localStorage.removeItem('latestNews');
+                alert('新聞已刪除');
+                loadNews();
+            }
         }
 
         function loadEvents() {
-            fetch('events-zh.json')
-                .then(response => response.json())
-                .then(data => {
-                    const list = document.getElementById('events-list');
-                    list.innerHTML = '<h3>現有活動</h3>';
-                    data.forEach(item => {
-                        list.innerHTML += `
-                            <div class="item-card">
-                                <h4>${item.title}</h4>
-                                <p><strong>日期：</strong> ${item.date} ${item.time}</p>
-                                <p><strong>地點：</strong> ${item.location}</p>
-                                <p>${item.description}</p>
-                                <div class="item-actions">
-                                    <button class="btn-edit">編輯</button>
-                                    <button class="btn-delete">刪除</button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                });
+            const customEvents = JSON.parse(localStorage.getItem('customEvents') || '[]');
+            const list = document.getElementById('events-list');
+            
+            if (customEvents.length > 0) {
+                list.innerHTML = '<h3>自訂活動</h3>' + customEvents.map(event => `
+                    <div class="event-preview" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+                        ${event.image ? `<img src="${event.image}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;" alt="${event.title}">` : ''}
+                        <h4>${event.title}</h4>
+                        <p><strong>日期：</strong> ${event.date} ${event.time ? '| ' + event.time : ''}</p>
+                        <p><strong>地點：</strong> ${event.location}</p>
+                        <p>${event.description}</p>
+                        ${event.contact_email ? `<p><strong>聯絡：</strong> ${event.contact_email}</p>` : ''}
+                        <button class="btn-delete" onclick="deleteEvent(${event.id})">刪除</button>
+                    </div>
+                `).join('');
+            } else {
+                list.innerHTML = '<p>尚無自訂活動。</p>';
+            }
+        }
+
+        function deleteEvent(eventId) {
+            if (confirm('確定要刪除此活動嗎？')) {
+                let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                events = events.filter(e => e.id !== eventId);
+                localStorage.setItem('customEvents', JSON.stringify(events));
+                alert('活動已刪除');
+                loadEvents();
+            }
         }
 
         function loadPapers() {
