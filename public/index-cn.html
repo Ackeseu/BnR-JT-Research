@@ -128,6 +128,35 @@
 
         async function loadUpcomingEvents() {
             try {
+                // First check for custom events in localStorage
+                const customEvents = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                
+                if (customEvents.length > 0) {
+                    const container = document.getElementById('events-preview-container');
+                    const now = new Date();
+                    const upcomingEvents = customEvents
+                        .filter(event => new Date(event.date) >= now)
+                        .sort((a, b) => new Date(a.date) - new Date(b.date))
+                        .slice(0, 3);
+                    
+                    container.innerHTML = upcomingEvents.map(event => `
+                        <div class="event-item">
+                            ${event.image ? `<img src="${event.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem;" alt="${event.title}">` : ''}
+                            <div class="event-date">
+                                <span class="month">${new Date(event.date).toLocaleDateString('zh-CN', { month: 'short' })}</span>
+                                <span class="day">${new Date(event.date).getDate()}</span>
+                            </div>
+                            <div class="event-details">
+                                <h3>${event.title}</h3>
+                                <p class="event-time">⏰ ${event.time}</p>
+                                <p class="event-location">📍 ${event.location}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                    return;
+                }
+                
+                // Fall back to loading from JSON file
                 const response = await fetch('events-cn.json');
                 const events = await response.json();
                 const container = document.getElementById('events-preview-container');

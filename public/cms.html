@@ -115,6 +115,19 @@
                             <label for="event-email">Contact Email</label>
                             <input type="email" id="event-email" placeholder="contact@researchinstitute.org">
                         </div>
+                        <div class="form-group">
+                            <label for="event-image">Event Image URL (optional)</label>
+                            <input type="url" id="event-image" placeholder="https://example.com/event-image.jpg">
+                            <small style="color: #666; display: block; margin-top: 0.5rem;">Enter a direct link to an image, or upload to images/ folder and use relative path (e.g., images/event-photo.jpg)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-image-upload">Or Upload Event Image</label>
+                            <input type="file" id="event-image-upload" accept="image/*" onchange="previewEventImage(this)">
+                            <div id="event-image-preview" style="margin-top: 1rem; display: none;">
+                                <img id="event-preview-img" style="max-width: 100%; max-height: 200px; border-radius: 8px;" />
+                                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Note: Image will be converted to base64 and stored in browser. For production, upload to images/ folder and use URL field instead.</p>
+                            </div>
+                        </div>
                         <button class="btn" onclick="addEvent()">📅 Create Event</button>
                     </div>
 
@@ -332,28 +345,68 @@
             const location = document.getElementById('event-location').value;
             const description = document.getElementById('event-description').value;
             const email = document.getElementById('event-email').value;
+            const imageUrl = document.getElementById('event-image').value;
+            const imageFile = document.getElementById('event-image-upload').files[0];
             
             if (title && date && location && description) {
                 const newEvent = {
                     id: Date.now(),
                     title, date, time, location, description,
-                    contact_email: email
+                    contact_email: email,
+                    image: imageUrl || null
                 };
                 
-                let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
-                events.push(newEvent);
-                localStorage.setItem('customEvents', JSON.stringify(events));
-                
-                alert('✓ Event created successfully!');
-                document.getElementById('event-title').value = '';
-                document.getElementById('event-date').value = '';
-                document.getElementById('event-time').value = '';
-                document.getElementById('event-location').value = '';
-                document.getElementById('event-description').value = '';
-                document.getElementById('event-email').value = '';
-                loadEvents();
+                // If image file was uploaded, convert to base64
+                if (imageFile && !imageUrl) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newEvent.image = e.target.result;
+                        let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                        events.push(newEvent);
+                        localStorage.setItem('customEvents', JSON.stringify(events));
+                        alert('✓ Event with image created successfully! Refresh the events page to see it.');
+                        clearEventForm();
+                        loadEvents();
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    let events = JSON.parse(localStorage.getItem('customEvents') || '[]');
+                    events.push(newEvent);
+                    localStorage.setItem('customEvents', JSON.stringify(events));
+                    alert('✓ Event created successfully! Refresh the events page to see it.');
+                    clearEventForm();
+                    loadEvents();
+                }
             } else {
-                alert('Please fill in all required fields');
+                alert('Please fill in all required fields (title, date, location, description)');
+            }
+        }
+        
+        function clearEventForm() {
+            document.getElementById('event-title').value = '';
+            document.getElementById('event-date').value = '';
+            document.getElementById('event-time').value = '';
+            document.getElementById('event-location').value = '';
+            document.getElementById('event-description').value = '';
+            document.getElementById('event-email').value = '';
+            document.getElementById('event-image').value = '';
+            document.getElementById('event-image-upload').value = '';
+            document.getElementById('event-image-preview').style.display = 'none';
+        }
+        
+        function previewEventImage(input) {
+            const preview = document.getElementById('event-image-preview');
+            const previewImg = document.getElementById('event-preview-img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
             }
         }
 
@@ -363,10 +416,12 @@
             
             if (customEvents.length > 0) {
                 list.innerHTML = customEvents.map(event => `
-                    <div class="event-preview">
+                    <div class="event-preview" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+                        ${event.image ? `<img src="${event.image}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;" alt="${event.title}">` : ''}
                         <h4>${event.title}</h4>
                         <p>📅 ${event.date} at ${event.time}</p>
                         <p>📍 ${event.location}</p>
+                        <p>${event.description}</p>
                         <button class="btn btn-small" onclick="deleteEvent(${event.id})">Delete</button>
                     </div>
                 `).join('');
