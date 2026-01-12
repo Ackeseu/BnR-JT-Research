@@ -100,6 +100,7 @@
                     const container = document.getElementById('news-container');
                     container.innerHTML = `
                         <article class="news-card">
+                            ${data.image ? `<img src="${data.image}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -1.5rem -1.5rem 1rem -1.5rem;" alt="${data.title}">` : ''}
                             <h3>${data.title}</h3>
                             <p class="date">${new Date(data.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                             <p>${data.content}</p>

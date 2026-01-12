@@ -64,6 +64,19 @@
                             <label for="news-content">Content</label>
                             <textarea id="news-content" placeholder="Article content" style="width: 100%; min-height: 150px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 5px; font-family: inherit;"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="news-image">Image URL (optional)</label>
+                            <input type="url" id="news-image" placeholder="https://example.com/image.jpg">
+                            <small style="color: #666; display: block; margin-top: 0.5rem;">Enter a direct link to an image, or upload to images/ folder and use relative path (e.g., images/news-photo.jpg)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="news-image-upload">Or Upload Image</label>
+                            <input type="file" id="news-image-upload" accept="image/*" onchange="previewImage(this)">
+                            <div id="image-preview" style="margin-top: 1rem; display: none;">
+                                <img id="preview-img" style="max-width: 100%; max-height: 200px; border-radius: 8px;" />
+                                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Note: Image will be converted to base64 and stored in browser. For production, upload to images/ folder and use URL field instead.</p>
+                            </div>
+                        </div>
                         <button class="btn" onclick="addNews()">📤 Publish News</button>
                     </div>
 
@@ -230,16 +243,60 @@
         function addNews() {
             const title = document.getElementById('news-title').value;
             const content = document.getElementById('news-content').value;
+            const imageUrl = document.getElementById('news-image').value;
+            const imageFile = document.getElementById('news-image-upload').files[0];
             
             if (title && content) {
-                const newsData = { title, date: new Date().toISOString().split('T')[0], content };
-                localStorage.setItem('latestNews', JSON.stringify(newsData));
-                alert('✓ News article published successfully! It will now appear on the homepage. Refresh the homepage to see the update.');
-                document.getElementById('news-title').value = '';
-                document.getElementById('news-content').value = '';
-                loadNews();
+                const newsData = { 
+                    title, 
+                    date: new Date().toISOString().split('T')[0], 
+                    content,
+                    image: imageUrl || null
+                };
+                
+                // If image file was uploaded, convert to base64
+                if (imageFile && !imageUrl) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        newsData.image = e.target.result;
+                        localStorage.setItem('latestNews', JSON.stringify(newsData));
+                        alert('✓ News article with image published successfully! Refresh the homepage to see the update.');
+                        clearNewsForm();
+                        loadNews();
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    localStorage.setItem('latestNews', JSON.stringify(newsData));
+                    alert('✓ News article published successfully! Refresh the homepage to see the update.');
+                    clearNewsForm();
+                    loadNews();
+                }
             } else {
-                alert('Please fill in all fields');
+                alert('Please fill in title and content fields');
+            }
+        }
+        
+        function clearNewsForm() {
+            document.getElementById('news-title').value = '';
+            document.getElementById('news-content').value = '';
+            document.getElementById('news-image').value = '';
+            document.getElementById('news-image-upload').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+        }
+        
+        function previewImage(input) {
+            const preview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
             }
         }
 
@@ -250,6 +307,7 @@
             if (newsData.title) {
                 list.innerHTML = `
                     <div class="news-item">
+                        ${newsData.image ? `<img src="${newsData.image}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;" alt="${newsData.title}">` : ''}
                         <h4>${newsData.title}</h4>
                         <p class="news-date">${newsData.date}</p>
                         <p>${newsData.content}</p>

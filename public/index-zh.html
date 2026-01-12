@@ -99,6 +99,7 @@
                 const newsFeed = document.getElementById('news-feed');
                 const newsHTML = `
                     <div class="news-item">
+                        ${data.image ? `<img src="${data.image}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="${data.title}">` : ''}
                         <h3>${data.title}</h3>
                         <p class="news-date">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                         <p>${data.content}</p>
