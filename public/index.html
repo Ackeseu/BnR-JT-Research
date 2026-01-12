@@ -91,20 +91,37 @@
     <script>
         // Load news feed
         function loadNews() {
-            fetch('./news1.json')
-                .then(response => response.json())
-                .then(data => {
-                    const newsFeed = document.getElementById('news-feed');
-                    const newsHTML = `
-                        <div class="news-item">
-                            <h3>${data.title}</h3>
-                            <p class="news-date">${new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                            <p>${data.content}</p>
-                        </div>
-                    `;
-                    newsFeed.innerHTML = newsHTML;
-                })
-                .catch(err => console.log('News feed loaded from cache'));
+            // First try to load custom news from localStorage
+            const customNews = localStorage.getItem('latestNews');
+            
+            if (customNews) {
+                const data = JSON.parse(customNews);
+                const newsFeed = document.getElementById('news-feed');
+                const newsHTML = `
+                    <div class="news-item">
+                        <h3>${data.title}</h3>
+                        <p class="news-date">${new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                        <p>${data.content}</p>
+                    </div>
+                `;
+                newsFeed.innerHTML = newsHTML;
+            } else {
+                // Fall back to loading from JSON file
+                fetch('./news1.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const newsFeed = document.getElementById('news-feed');
+                        const newsHTML = `
+                            <div class="news-item">
+                                <h3>${data.title}</h3>
+                                <p class="news-date">${new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <p>${data.content}</p>
+                            </div>
+                        `;
+                        newsFeed.innerHTML = newsHTML;
+                    })
+                    .catch(err => console.log('News feed loaded from cache'));
+            }
         }
 
         // Load upcoming events preview

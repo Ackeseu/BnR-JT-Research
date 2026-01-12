@@ -234,7 +234,7 @@
             if (title && content) {
                 const newsData = { title, date: new Date().toISOString().split('T')[0], content };
                 localStorage.setItem('latestNews', JSON.stringify(newsData));
-                alert('✓ News published successfully!');
+                alert('✓ News article published successfully! It will now appear on the homepage. Refresh the homepage to see the update.');
                 document.getElementById('news-title').value = '';
                 document.getElementById('news-content').value = '';
                 loadNews();
