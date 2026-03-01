@@ -41,13 +41,15 @@
     </header>
 
     <main>
+        <section class="institutional-intro">
+            <h2>資源中心</h2>
+            <p>提供契約起草、履約管理與爭議預防相關的參考資料、範本與實務工具。</p>
+        </section>
+
         <section>
-            <h2>資源庫</h2>
-            <p>訪問我們全面的國際建築合約指南、範本和工具集合。</p>
-            
-            <div style="margin-bottom: 3rem;">
-                <label for="filter-category" style="font-weight: bold; margin-right: 1rem;">按類別篩選：</label>
-                <select id="filter-category" style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 5px;">
+            <div class="resources-filter" style="margin-bottom: 2rem;">
+                <label for="filter-category">按類別篩選：</label>
+                <select id="filter-category">
                     <option value="">所有資源</option>
                     <option value="範本">範本</option>
                     <option value="指南">指南</option>
@@ -61,9 +63,32 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
-        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h4>一帶一路建投研究院</h4>
+                <p>聯絡：<a href="mailto:info@brjtresearch.org">info@brjtresearch.org</a></p>
+                <p>電話：+852 2888-8888</p>
+                <p>地址：香港中環</p>
+            </div>
+            <div>
+                <h4>重要連結</h4>
+                <ul>
+                    <li><a href="index-zh.html">首頁</a></li>
+                    <li><a href="research-zh.html">研究論文</a></li>
+                    <li><a href="resources-zh.html">資源中心</a></li>
+                    <li><a href="events-zh.html">活動</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>會員服務</h4>
+                <ul>
+                    <li><a href="login-zh.html">會員登入</a></li>
+                    <li><a href="cms-zh.html">管理平台</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-legal">&copy; 2026 一帶一路建投研究院。版權所有。</p>
     </footer>
 
     <script>

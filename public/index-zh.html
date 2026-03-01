@@ -42,50 +42,89 @@
     </header>
 
     <main>
-        <section class="hero">
-            <h1>歡迎來到一帶一路建投研究院</h1>
-            <p class="subtitle">透過卓越研究推進知識</p>
+        <section class="institutional-intro">
+            <h2>關於本院</h2>
+            <p>一帶一路建投研究院為跨境建築合約與爭議預防提供研究與知識平台，聯繫學術界、專業界與機構夥伴，推動具實務價值的政策與制度研究。</p>
         </section>
 
         <section class="mission">
-            <h2>我們的使命</h2>
-            <p>一帶一路建投研究院致力於在建築合約領域開展開創性研究，促進創新，並為國際建築項目的知識進步作出貢獻。我們與全球領先機構合作，應對跨境建設項目面臨的關鍵挑戰。</p>
-            
+            <h2>核心職能</h2>
             <div class="features">
                 <div class="feature-card">
-                    <h3>🎯 目標導向</h3>
-                    <p>我們的研究由明確的目標和可衡量的成果驅動，對社會產生積極影響。</p>
+                    <h3>⚖️ 應用研究</h3>
+                    <p>提供國際建設項目的比較法與政策研究成果。</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🤝 協作合作</h3>
-                    <p>我們與全球研究人員和機構合作，擴大我們的影響力。</p>
+                    <h3>🤝 能力建設</h3>
+                    <p>舉辦研討會與合作項目，支援法律及項目專業人士成長。</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📚 知識共享</h3>
-                    <p>我們公開發表研究成果，以造福更廣泛的研究社群。</p>
+                    <h3>📚 公共資源</h3>
+                    <p>建置開放參考資料、範本與實務指引，促進知識共享。</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🔍 創新</h3>
-                    <p>我們在研究中採用尖端方法和新興技術。</p>
+                    <h3>🌐 區域交流</h3>
+                    <p>促進亞洲及合作法域之間的制度對話與協作。</p>
                 </div>
             </div>
         </section>
 
-        <section class="news">
-            <h2>最新消息與更新</h2>
-            <div id="news-feed" class="news-container"></div>
+        <section class="welcome-panel">
+            <h2>歡迎辭</h2>
+            <p>本院致力於提供可信、務實且面向未來的研究服務，支援建築與法律領域發展。我們歡迎大學、行業協會與專業社群共同開展基於證據的合作計畫。</p>
+            <p class="signature">院長｜一帶一路建投研究院</p>
         </section>
 
-        <section class="upcoming-events">
-            <h2>即將舉行的活動</h2>
-            <div id="upcoming-events-preview" class="events-preview"></div>
-            <p><a href="events-zh.html" class="btn-link">查看所有活動 →</a></p>
+        <section class="home-split">
+            <div class="split-column">
+                <div class="section-head">
+                    <h2>最新消息</h2>
+                    <a href="research-zh.html" class="text-link">查看全部消息</a>
+                </div>
+                <div id="news-feed" class="news-list"></div>
+            </div>
+            <div class="split-column">
+                <div class="section-head">
+                    <h2>活動資訊</h2>
+                    <a href="events-zh.html" class="text-link">查看全部活動</a>
+                </div>
+                <div id="upcoming-events-preview" class="events-list"></div>
+            </div>
+        </section>
+
+        <section class="contact-cta">
+            <h2>有任何問題？我們隨時為您提供協助</h2>
+            <p>如需合作研究、活動參與或機構諮詢，歡迎聯繫我們。</p>
+            <a href="mailto:info@brjtresearch.org" class="btn">聯絡我們</a>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 一帶一路建投研究院。版權所有。</p>
-        <p>聯絡：info@brjtresearch.org | 電話：+852 2888-8888 | 地址：香港銀都夜市</p>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h4>一帶一路建投研究院</h4>
+                <p>聯絡：<a href="mailto:info@brjtresearch.org">info@brjtresearch.org</a></p>
+                <p>電話：+852 2888-8888</p>
+                <p>地址：香港中環</p>
+            </div>
+            <div>
+                <h4>重要連結</h4>
+                <ul>
+                    <li><a href="index-zh.html">首頁</a></li>
+                    <li><a href="research-zh.html">研究論文</a></li>
+                    <li><a href="resources-zh.html">資源中心</a></li>
+                    <li><a href="events-zh.html">活動</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>會員服務</h4>
+                <ul>
+                    <li><a href="login-zh.html">會員登入</a></li>
+                    <li><a href="cms-zh.html">管理平台</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-legal">&copy; 2026 一帶一路建投研究院。版權所有。</p>
     </footer>
 
     <script>
@@ -98,12 +137,12 @@
                 const data = JSON.parse(customNews);
                 const newsFeed = document.getElementById('news-feed');
                 const newsHTML = `
-                    <div class="news-item">
-                        ${data.image ? `<img src="${data.image}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="${data.title}">` : ''}
+                    <article class="news-list-card">
                         <h3>${data.title}</h3>
-                        <p class="news-date">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                        <p>${data.content}</p>
-                    </div>
+                        <p class="item-meta">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                        <p class="item-summary">${data.content}</p>
+                        <a class="text-link" href="research-zh.html">了解更多</a>
+                    </article>
                 `;
                 newsFeed.innerHTML = newsHTML;
             } else {
@@ -113,11 +152,12 @@
                     .then(data => {
                         const newsFeed = document.getElementById('news-feed');
                         const newsHTML = `
-                            <div class="news-item">
+                            <article class="news-list-card">
                                 <h3>${data.title}</h3>
-                                <p class="news-date">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                <p>${data.content}</p>
-                            </div>
+                                <p class="item-meta">${new Date(data.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <p class="item-summary">${data.content}</p>
+                                <a class="text-link" href="research-zh.html">了解更多</a>
+                            </article>
                         `;
                         newsFeed.innerHTML = newsHTML;
                     })
@@ -133,12 +173,12 @@
             if (customEvents.length > 0) {
                 const preview = document.getElementById('upcoming-events-preview');
                 const upcoming = customEvents.slice(0, 3).map(event => `
-                    <div class="event-preview">
-                        ${event.image ? `<img src="${event.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem;" alt="${event.title}">` : ''}
+                    <article class="event-list-card">
                         <h4>${event.title}</h4>
-                        <p class="event-date">📅 ${new Date(event.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
-                        <p>${event.description.substring(0, 100)}...</p>
-                    </div>
+                        <p class="item-meta">📅 ${new Date(event.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                        <p class="item-summary">${event.description.substring(0, 110)}...</p>
+                        <a class="text-link" href="events-zh.html">了解更多</a>
+                    </article>
                 `).join('');
                 preview.innerHTML = upcoming;
                 return;
@@ -150,11 +190,12 @@
                 .then(data => {
                     const preview = document.getElementById('upcoming-events-preview');
                     const upcoming = data.events.slice(0, 3).map(event => `
-                        <div class="event-preview">
+                        <article class="event-list-card">
                             <h4>${event.title}</h4>
-                            <p class="event-date">📅 ${new Date(event.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
-                            <p>${event.description.substring(0, 100)}...</p>
-                        </div>
+                            <p class="item-meta">📅 ${new Date(event.date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                            <p class="item-summary">${event.description.substring(0, 110)}...</p>
+                            <a class="text-link" href="events-zh.html">了解更多</a>
+                        </article>
                     `).join('');
                     preview.innerHTML = upcoming || '<p>目前沒有即將舉行的活動。</p>';
                 })

@@ -41,11 +41,15 @@
     </header>
 
     <main>
+        <section class="institutional-intro">
+            <h2>研究论文与出版</h2>
+            <p>浏览跨境建筑合约与争议预防领域的同行评审成果、比较研究与实务导向分析。</p>
+        </section>
+
         <section>
-            <h2>研究论文</h2>
-            <p>探索我们团队在各个领域的最新研究成果。</p>
-            
-            <h3>公开发表</h3>
+            <div class="section-head">
+                <h2>公开论文</h2>
+            </div>
             <div id="public-papers" class="papers-grid">
                 <p>正在加载论文...</p>
             </div>
@@ -62,9 +66,32 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
-        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h4>一带一路建投研究院</h4>
+                <p>联系：<a href="mailto:info@brjtresearch.org">info@brjtresearch.org</a></p>
+                <p>电话：+852 2888-8888</p>
+                <p>地址：香港中环</p>
+            </div>
+            <div>
+                <h4>重要链接</h4>
+                <ul>
+                    <li><a href="index-cn.html">首页</a></li>
+                    <li><a href="research-cn.html">研究论文</a></li>
+                    <li><a href="resources-cn.html">资源中心</a></li>
+                    <li><a href="events-cn.html">活动</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>会员服务</h4>
+                <ul>
+                    <li><a href="login-cn.html">会员登录</a></li>
+                    <li><a href="cms-cn.html">管理平台</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-legal">&copy; 2026 一带一路建投研究院。版权所有。</p>
     </footer>
 
     <script>
@@ -94,22 +121,24 @@
             try {
                 const response = await fetch('papers.json');
                 const data = await response.json();
+                const papers = data.papers || [];
                 
                 const publicContainer = document.getElementById('public-papers');
-                publicContainer.innerHTML = data.public.map(paper => `
+                publicContainer.innerHTML = papers.filter(paper => !paper.member_only).map(paper => `
                     <div class="paper-card">
                         <h3>${paper.title}</h3>
                         <p class="authors">作者：${paper.authors}</p>
-                        <p class="publication">发表于 ${paper.journal} (${paper.year})</p>
+                        <p class="publication">发表于 ${paper.year}</p>
+                        <p>${paper.abstract}</p>
                         <div class="paper-actions">
-                            ${paper.pdf ? `<a href="${paper.pdf}" class="btn" target="_blank">下载PDF</a>` : ''}
-                            <a href="https://doi.org/${paper.doi}" class="btn btn-link" target="_blank">在DOI上查看</a>
+                            <a href="${paper.pdf_url}" class="btn" target="_blank" download>下载PDF</a>
+                            <a href="${paper.doi_url}" class="btn btn-link" target="_blank">在DOI上查看</a>
                         </div>
                     </div>
                 `).join('');
 
                 if (localStorage.getItem('authToken')) {
-                    loadMemberPapers(data.members);
+                    loadMemberPapers(papers.filter(paper => paper.member_only));
                 }
             } catch (error) {
                 document.getElementById('public-papers').innerHTML = '<p>无法加载论文。</p>';
@@ -122,10 +151,11 @@
                 <div class="paper-card">
                     <h3>${paper.title}</h3>
                     <p class="authors">作者：${paper.authors}</p>
-                    <p class="publication">发表于 ${paper.journal} (${paper.year})</p>
+                    <p class="publication">发表于 ${paper.year}</p>
+                    <p>${paper.abstract}</p>
                     <div class="paper-actions">
-                        ${paper.pdf ? `<a href="${paper.pdf}" class="btn" target="_blank">下载PDF</a>` : ''}
-                        <a href="https://doi.org/${paper.doi}" class="btn btn-link" target="_blank">在DOI上查看</a>
+                        <a href="${paper.pdf_url}" class="btn" target="_blank" download>下载PDF</a>
+                        <a href="${paper.doi_url}" class="btn btn-link" target="_blank">在DOI上查看</a>
                     </div>
                 </div>
             `).join('');

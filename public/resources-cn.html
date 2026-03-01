@@ -41,11 +41,13 @@
     </header>
 
     <main>
-        <section>
+        <section class="institutional-intro">
             <h2>资源中心</h2>
-            <p>访问我们精选的模板、指南和工具，助力建筑合约研究。</p>
-            
-            <div class="resources-filter">
+            <p>提供合同起草、履约管理与争议预防相关的参考资料、模板与实务工具。</p>
+        </section>
+
+        <section>
+            <div class="resources-filter" style="margin-bottom: 2rem;">
                 <label for="category-filter">按类别筛选：</label>
                 <select id="category-filter" onchange="filterResources()">
                     <option value="all">所有类别</option>
@@ -57,15 +59,38 @@
                 </select>
             </div>
 
-            <div id="resources-container" class="resources-grid">
+            <div id="resources-container">
                 <p>正在加载资源...</p>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 一带一路建投研究院。版权所有。</p>
-        <p>联系：info@brjtresearch.org | 电话：+852 2888-8888 | 地址：香港银都夜市</p>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h4>一带一路建投研究院</h4>
+                <p>联系：<a href="mailto:info@brjtresearch.org">info@brjtresearch.org</a></p>
+                <p>电话：+852 2888-8888</p>
+                <p>地址：香港中环</p>
+            </div>
+            <div>
+                <h4>重要链接</h4>
+                <ul>
+                    <li><a href="index-cn.html">首页</a></li>
+                    <li><a href="research-cn.html">研究论文</a></li>
+                    <li><a href="resources-cn.html">资源中心</a></li>
+                    <li><a href="events-cn.html">活动</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>会员服务</h4>
+                <ul>
+                    <li><a href="login-cn.html">会员登录</a></li>
+                    <li><a href="cms-cn.html">管理平台</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-legal">&copy; 2026 一带一路建投研究院。版权所有。</p>
     </footer>
 
     <script>
@@ -109,24 +134,19 @@
             }
 
             container.innerHTML = resources.map(resource => `
-                <div class="resource-card">
-                    <div class="resource-icon">${resource.icon}</div>
-                    <h3>${resource.title}</h3>
-                    <span class="resource-category">${resource.category}</span>
-                    <p>${resource.shortDescription}</p>
-                    <details>
-                        <summary>了解更多</summary>
-                        <p>${resource.fullDescription}</p>
-                        ${resource.downloadUrl ? `
-                            <div class="resource-meta">
-                                <span>格式：${resource.format}</span>
-                                <span>大小：${resource.fileSize}</span>
+                <div class="resource-detail-card">
+                    <div style="display: flex; align-items: flex-start; gap: 2rem;">
+                        <div style="font-size: 4rem; min-width: 100px; text-align: center;">${resource.icon}</div>
+                        <div style="flex-grow: 1;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">${resource.title}</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>类别：</strong> ${resource.category}</p>
+                            <p style="margin-bottom: 1rem; line-height: 1.6;">${resource.fullDescription}</p>
+                            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                                <a href="${resource.downloadUrl}" class="btn btn-small">📥 下载 (${resource.fileSize})</a>
+                                <span style="color: #7f8c8d; font-size: 0.9rem;">${resource.format}</span>
                             </div>
-                        ` : ''}
-                    </details>
-                    ${resource.downloadUrl ? `
-                        <a href="${resource.downloadUrl}" class="btn" download>下载</a>
-                    ` : ''}
+                        </div>
+                    </div>
                 </div>
             `).join('');
         }

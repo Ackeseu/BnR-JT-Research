@@ -41,13 +41,15 @@
     </header>
 
     <main>
-        <section>
+        <section class="institutional-intro">
             <h2>Resource Library</h2>
-            <p>Access our comprehensive collection of guides, templates, and tools for international construction contracts.</p>
-            
-            <div style="margin-bottom: 3rem;">
-                <label for="filter-category" style="font-weight: bold; margin-right: 1rem;">Filter by Category:</label>
-                <select id="filter-category" style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 5px;">
+            <p>Access reference materials, templates, and practical tools supporting contract drafting, compliance, and dispute prevention.</p>
+        </section>
+
+        <section>
+            <div class="resources-filter" style="margin-bottom: 2rem;">
+                <label for="filter-category">Filter by Category:</label>
+                <select id="filter-category">
                     <option value="">All Resources</option>
                     <option value="Templates">Templates</option>
                     <option value="Guides">Guides</option>
@@ -61,9 +63,32 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
-        <p>Contact: info@brjtresearch.org | Phone: +852 2888-8888 | Address: Central, Hong Kong</p>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h4>B&R JT Research Co. Limited</h4>
+                <p>Contact: <a href="mailto:info@brjtresearch.org">info@brjtresearch.org</a></p>
+                <p>Phone: +852 2888-8888</p>
+                <p>Address: Central, Hong Kong</p>
+            </div>
+            <div>
+                <h4>Important Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="research.html">Research Papers</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Member Services</h4>
+                <ul>
+                    <li><a href="login.html">Member Login</a></li>
+                    <li><a href="cms.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-legal">&copy; 2026 B&R JT Research Co. Limited. All rights reserved.</p>
     </footer>
 
     <script>
